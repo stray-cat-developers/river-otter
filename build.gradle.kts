@@ -6,9 +6,9 @@ plugins {
     id("org.springframework.boot") version "2.3.4.RELEASE"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("com.avast.gradle.docker-compose") version "0.13.2"
-    kotlin("jvm") version "1.3.71"
-    kotlin("plugin.spring") version "1.3.71"
-    kotlin("plugin.allopen") version "1.3.71"
+    kotlin("jvm") version "1.4.10"
+    kotlin("plugin.spring") version "1.4.10"
+    kotlin("plugin.allopen") version "1.4.10"
     id("org.jmailen.kotlinter") version "3.0.2"
 }
 
@@ -27,7 +27,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
+
     implementation("com.github.kittinunf.fuel:fuel:2.2.3")
 
     testImplementation("cz.jirutka.spring:embedmongo-spring:1.3.1")
@@ -44,11 +44,15 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(module = "spring-boot-starter-tomcat")
     }
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     implementation("org.springframework.boot:spring-boot-starter-undertow") {
         exclude("io.undertow", "undertow-websockets-jsr")
     }

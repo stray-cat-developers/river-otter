@@ -1,0 +1,36 @@
+logging:
+  level:
+    io.mustelidae.grantotter: info
+    org.springframework.boot.actuate: off
+    org.springframework.web: debug
+    org.springframework.boot: info
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.hibernate.SQL: debug
+    org.hibernate.tool.schema: error
+    com.zaxxer.hikari: error
+    io.swagger.models.parameters.AbstractSerializableParameter: error
+
+server:
+  error:
+    include-stacktrace: always
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  port: 6400
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27018
+      database: riverOtter
+
+app:
+  client:
+    government:
+      use-dummy: false
+      is
+      host: http://apis.data.go.kr
+      key: lpQXHxRKaKapgLrvvnx9%2BuZHMW4xD8Nm%2Fnr1Nr9My%2F4V9g7tJe1yikoJyLq1KpzgQXA1dNir5XTVNRsbdp6KSg%3D%3D
