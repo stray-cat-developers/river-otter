@@ -24,7 +24,7 @@ class HolidayCalenderInteraction(
 
     fun findBy(locale: Locale, year: Int, month: Int): List<Holiday> {
         val holidayCalender = findBy(locale, year)
-        return holidayCalender.holidays.filter { it.date.dayOfMonth == month }
+        return holidayCalender.holidays.filter { it.date.monthValue == month }
     }
 
     fun findBy(locale: Locale, year: Int, month: Int, day: Int): Holiday? {
