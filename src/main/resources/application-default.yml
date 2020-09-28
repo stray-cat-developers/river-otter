@@ -26,6 +26,8 @@ spring:
     mongodb:
       uri: mongodb://localhost:27018
       database: riverOtter
+  mvc:
+    log-request-details: true
 
 app:
   available-countries: KR,US

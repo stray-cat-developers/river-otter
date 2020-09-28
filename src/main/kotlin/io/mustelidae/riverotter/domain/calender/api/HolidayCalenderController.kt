@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @Api(tags = ["Holiday calender"], description = "Holiday calender")
@@ -49,7 +50,7 @@ class HolidayCalenderController(
     }
 
     @GetMapping("country/{country}/year/{year}")
-    fun findByYear(
+    fun findYear(
         @PathVariable country: String,
         @PathVariable year: Int
     ): Reply<Calender> {
@@ -60,7 +61,7 @@ class HolidayCalenderController(
     }
 
     @GetMapping("country/{country}/year/{year}/month/{month}")
-    fun findByMonth(
+    fun findMonth(
         @PathVariable country: String,
         @PathVariable year: Int,
         @PathVariable month: Int
@@ -72,7 +73,7 @@ class HolidayCalenderController(
     }
 
     @GetMapping("country/{country}/year/{year}/month/{month}/day/{day}")
-    fun findByDay(
+    fun findDay(
         @PathVariable country: String,
         @PathVariable year: Int,
         @PathVariable month: Int,
@@ -87,5 +88,15 @@ class HolidayCalenderController(
             HolidayCalenderResources.Reply.DayOfHoliday.fromHasHoliday(holiday, locale)
 
         return dayOfHoliday.toReply()
+    }
+
+    @GetMapping("country/{country}")
+    fun findDayWithParam(
+        @PathVariable country: String,
+        @RequestParam year: Int,
+        @RequestParam month: Int,
+        @RequestParam day: Int
+    ): Reply<HolidayCalenderResources.Reply.DayOfHoliday> {
+        return this.findDay(country, year, month, day)
     }
 }

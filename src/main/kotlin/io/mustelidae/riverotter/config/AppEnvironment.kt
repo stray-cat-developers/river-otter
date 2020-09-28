@@ -11,7 +11,7 @@ class AppEnvironment {
     var client = Client()
     var country = Country()
 
-    private lateinit var availableCountries: List<String>
+    lateinit var availableCountries: List<String>
 
     fun getAvailableLocales(): List<Locale> {
         return availableCountries.map { AvailableCountry.getLocale(it) }

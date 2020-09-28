@@ -5,6 +5,7 @@ import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.domain.calender.holiday.Holiday
 import io.mustelidae.riverotter.domain.calender.holiday.Holiday.Type
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
+import io.swagger.annotations.ApiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -13,6 +14,7 @@ import java.util.Locale
 class HolidayCalenderResources {
 
     class Request {
+        @ApiModel("HolidayCalender.Request.Crawling")
         data class Crawling(
             val year: Int? = null,
             val country: String? = null
@@ -30,12 +32,14 @@ class HolidayCalenderResources {
 
     class Reply {
 
+        @ApiModel("HolidayCalender.Reply.YearOfCountry")
         data class YearOfCountry(
             val country: String,
             val id: String,
             val year: Int,
         )
 
+        @ApiModel("HolidayCalender.Reply.Calender")
         data class Calender(
             val id: String,
             val country: String,
@@ -57,6 +61,7 @@ class HolidayCalenderResources {
             }
         }
 
+        @ApiModel("HolidayCalender.Reply.DayOfHoliday")
         data class DayOfHoliday(
             @get:JsonProperty("isHoliday")
             val isHoliday: Boolean,
@@ -74,6 +79,7 @@ class HolidayCalenderResources {
             }
         }
 
+        @ApiModel("HolidayCalender.Reply.Day")
         data class Day(
             val date: LocalDate,
             val month: Int,
