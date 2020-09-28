@@ -53,10 +53,39 @@ class HolidayCalenderController(
         @PathVariable country: String,
         @PathVariable year: Int
     ): Reply<Calender> {
-
         val locale = AvailableCountry.getLocale(country)
-        val calender = holidayCalenderInteraction.findYear(year, locale)
+        val calender = holidayCalenderInteraction.findBy(locale, year)
 
         return Calender.from(calender).toReply()
+    }
+
+    @GetMapping("country/{country}/year/{year}/month/{month}")
+    fun findByMonth(
+        @PathVariable country: String,
+        @PathVariable year: Int,
+        @PathVariable month: Int
+    ): Replies<HolidayCalenderResources.Reply.Day> {
+        val locale = AvailableCountry.getLocale(country)
+        return holidayCalenderInteraction.findBy(locale, year, month)
+            .map { HolidayCalenderResources.Reply.Day.from(it, locale) }
+            .toReplies()
+    }
+
+    @GetMapping("country/{country}/year/{year}/month/{month}/day/{day}")
+    fun findByDay(
+        @PathVariable country: String,
+        @PathVariable year: Int,
+        @PathVariable month: Int,
+        @PathVariable day: Int
+    ): Reply<HolidayCalenderResources.Reply.DayOfHoliday> {
+        val locale = AvailableCountry.getLocale(country)
+        val holiday = holidayCalenderInteraction.findBy(locale, year, month, day)
+
+        val dayOfHoliday = if (holiday == null)
+            HolidayCalenderResources.Reply.DayOfHoliday.fromNotHoliday()
+        else
+            HolidayCalenderResources.Reply.DayOfHoliday.fromHasHoliday(holiday, locale)
+
+        return dayOfHoliday.toReply()
     }
 }

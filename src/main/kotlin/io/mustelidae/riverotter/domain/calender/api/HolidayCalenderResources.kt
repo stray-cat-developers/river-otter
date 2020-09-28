@@ -1,7 +1,8 @@
 package io.mustelidae.riverotter.domain.calender.api
 
-import java.time.DayOfWeek
+import com.fasterxml.jackson.annotation.JsonProperty
 import io.mustelidae.riverotter.common.AvailableCountry
+import io.mustelidae.riverotter.domain.calender.holiday.Holiday
 import io.mustelidae.riverotter.domain.calender.holiday.Holiday.Type
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
 import java.time.LocalDate
@@ -39,12 +40,12 @@ class HolidayCalenderResources {
             val id: String,
             val country: String,
             val year: Int,
-            val holidays: List<Holiday>,
+            val days: List<Day>,
             val createdAt: LocalDateTime
         ) {
             companion object {
                 fun from(holidayCalender: HolidayCalender): Calender {
-                    val holidays = holidayCalender.holidays.map { Holiday.from(it, holidayCalender.locale) }
+                    val holidays = holidayCalender.holidays.map { Day.from(it, holidayCalender.locale) }
                     return Calender(
                         holidayCalender.id.toString(),
                         holidayCalender.locale.country,
@@ -56,7 +57,24 @@ class HolidayCalenderResources {
             }
         }
 
-        data class Holiday(
+        data class DayOfHoliday(
+            @get:JsonProperty("isHoliday")
+            val isHoliday: Boolean,
+            val day: Day? = null
+        ) {
+            companion object {
+                fun fromNotHoliday(): DayOfHoliday = DayOfHoliday(false, null)
+
+                fun fromHasHoliday(holiday: Holiday, locale: Locale): DayOfHoliday {
+                    return DayOfHoliday(
+                        true,
+                        Day.from(holiday, locale)
+                    )
+                }
+            }
+        }
+
+        data class Day(
             val date: LocalDate,
             val month: Int,
             val day: Int,
@@ -66,9 +84,9 @@ class HolidayCalenderResources {
             val description: String? = null
         ) {
             companion object {
-                fun from(holiday: io.mustelidae.riverotter.domain.calender.holiday.Holiday, locale: Locale): Holiday {
+                fun from(holiday: Holiday, locale: Locale): Day {
                     return holiday.run {
-                        Holiday(
+                        Day(
                             date,
                             date.monthValue,
                             date.dayOfMonth,
