@@ -7,6 +7,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("com.avast.gradle.docker-compose") version "0.13.2"
     kotlin("jvm") version "1.4.10"
+    kotlin("plugin.noarg") version "1.4.10"
     kotlin("plugin.spring") version "1.4.10"
     kotlin("plugin.allopen") version "1.4.10"
     id("org.jmailen.kotlinter") version "3.0.2"
@@ -60,6 +61,16 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(group = "junit", module = "junit")
     }
+}
+
+allOpen {
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("org.springframework.data.mongodb.core.mapping.Document")
+}
+
+noArg {
+    annotation("javax.persistence.MappedSuperclass")
+    annotation("org.springframework.data.mongodb.core.mapping.Document")
 }
 
 tasks.withType<Test> {

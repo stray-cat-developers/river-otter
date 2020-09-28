@@ -28,9 +28,18 @@ spring:
       database: riverOtter
 
 app:
+  available-countries: KR,US
+  country:
+    korea:
+      saturday-is-holiday: true
   client:
     government:
-      use-dummy: false
-      is
+      use-dummy: true
       host: http://apis.data.go.kr
       key: lpQXHxRKaKapgLrvvnx9%2BuZHMW4xD8Nm%2Fnr1Nr9My%2F4V9g7tJe1yikoJyLq1KpzgQXA1dNir5XTVNRsbdp6KSg%3D%3D
+      timeout: 6000
+    abstract:
+      use-dummy: true
+      host: https://holidays.abstractapi.com
+      key: b7814953c3474896aae378fada8cd409
+      timeout: 6000

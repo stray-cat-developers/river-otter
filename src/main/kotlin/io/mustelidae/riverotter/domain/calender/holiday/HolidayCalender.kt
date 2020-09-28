@@ -5,20 +5,19 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import java.util.Locale
+import org.bson.codecs.pojo.annotations.BsonIgnore
 
 @Document
 class HolidayCalender(
-    locale: Locale,
+    val locale: Locale,
     val year: Int,
     val holidays: List<Holiday>
 ) {
-    val country = locale.country!!
-
     @Id
     var id: ObjectId = ObjectId()
-        private set
+        protected set
     var createdAt = LocalDateTime.now()!!
-        private set
+        protected set
 
     companion object
 }

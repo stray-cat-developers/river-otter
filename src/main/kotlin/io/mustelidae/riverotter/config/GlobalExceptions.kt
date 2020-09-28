@@ -16,3 +16,5 @@ open class CommunicationException(error: Error) : java.lang.RuntimeException(err
 class GovernmentOpenClientException(fuelError: FuelError) : CommunicationException(Error(ErrorCode.C100))
 
 class WorldHolidayClientException(fuelError: FuelError) : CommunicationException(Error(ErrorCode.C100))
+
+open class SystemException(error: Error) : RuntimeException(error.getMessage())

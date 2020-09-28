@@ -1,14 +1,28 @@
 package io.mustelidae.riverotter.config
 
+import io.mustelidae.riverotter.common.AvailableCountry
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
+import java.util.Locale
 
 @Configuration
 @ConfigurationProperties(prefix = "app")
 class AppEnvironment {
     var client = Client()
+    var country = Country()
 
-    var saturdayIsHoliday: Boolean = true
+    private lateinit var availableCountries: List<String>
+
+    fun getAvailableLocales(): List<Locale> {
+        return availableCountries.map { AvailableCountry.getLocale(it) }
+    }
+
+    class Country {
+        var korea = Korea()
+        class Korea {
+            var saturdayIsHoliday: Boolean = true
+        }
+    }
 
     class Client {
         var government = Government()

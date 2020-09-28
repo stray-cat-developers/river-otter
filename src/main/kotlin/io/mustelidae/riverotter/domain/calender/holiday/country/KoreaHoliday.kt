@@ -11,15 +11,15 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class KoreaHoliday(
-    env: AppEnvironment,
+    korEnv: AppEnvironment.Country.Korea,
     private val governmentOpenClient: GovernmentOpenClient,
     private val holidayCalenderRepository: HolidayCalenderRepository,
 ) : CountryHoliday {
 
     override val localeOfCountry: Locale = Locale.KOREA
-    private val countryCode = localeOfCountry.isO3Country
+    private val countryCode = localeOfCountry.country
     private val patternOfLocDate = DateTimeFormatter.ofPattern("yyyyMMdd")
-    private val saturdayIsHoliday = env.saturdayIsHoliday
+    private val saturdayIsHoliday = korEnv.saturdayIsHoliday
 
     override fun create(year: Int): ObjectId {
         val holidayCalender = holidayCalenderRepository.findByYearAndCountry(year, countryCode)

@@ -31,7 +31,7 @@ internal class UnitedStateHolidayTest {
 
         // Then
         val savedCalender = slot.captured
-        savedCalender.country shouldBe usaHoliday.localeOfCountry.country
+        savedCalender.locale shouldBe usaHoliday.localeOfCountry
         savedCalender.holidays.size shouldBe 61
     }
 }

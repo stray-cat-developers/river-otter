@@ -18,9 +18,9 @@ internal class KoreaHolidayTest {
     private val holidayCalenderRepository: HolidayCalenderRepository = mockk()
     private val governmentOpenClient = GovernmentOpenDummyClient()
     private val appEnv = AppEnvironment().apply {
-        saturdayIsHoliday = true
+        country.korea.saturdayIsHoliday = true
     }
-    private val koreaHoliday = KoreaHoliday(appEnv, governmentOpenClient, holidayCalenderRepository)
+    private val koreaHoliday = KoreaHoliday(appEnv.country.korea, governmentOpenClient, holidayCalenderRepository)
 
     @Test
     fun getWeekend() {
@@ -49,7 +49,7 @@ internal class KoreaHolidayTest {
 
         // Then
         val savedCalender = slot.captured
-        savedCalender.country shouldBe koreaHoliday.localeOfCountry.country
+        savedCalender.locale shouldBe koreaHoliday.localeOfCountry
         savedCalender.holidays.size shouldBe 116
     }
 }

@@ -25,14 +25,14 @@ interface CountryHoliday {
         }
 
         for (i in 0..364) {
-            val day = startOfYear.plusDays(i.toLong())
-            val dayOfWeek = day.dayOfWeek
+            val date = startOfYear.plusDays(i.toLong())
+            val dayOfWeek = date.dayOfWeek
 
             if (dayOfWeek == SUNDAY)
-                holidays.add(Holiday(day, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
+                holidays.add(Holiday(date, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
 
             if (dayOfWeek == SATURDAY && saturdayIsHoliday)
-                holidays.add(Holiday(day, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
+                holidays.add(Holiday(date, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
         }
 
         return holidays
