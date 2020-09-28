@@ -27,7 +27,7 @@ class SwaggerConfiguration {
         .directModelSubstitute(LocalDateTime::class.java, String::class.java)
         .directModelSubstitute(LocalTime::class.java, String::class.java)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.kakaomobility.booking.api.domain"))
+        .apis(RequestHandlerSelectors.basePackage("io.mustelidae.riverotter.domain"))
         .build()
         .additionalModels(typeResolver.resolve(GlobalErrorFormat::class.java))
 }
