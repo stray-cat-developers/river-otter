@@ -1,10 +1,12 @@
 package io.mustelidae.riverotter.domain.calender.api
 
+import java.time.DayOfWeek
 import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.domain.calender.holiday.Holiday.Type
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.TextStyle
 import java.util.Locale
 
 class HolidayCalenderResources {
@@ -42,7 +44,7 @@ class HolidayCalenderResources {
         ) {
             companion object {
                 fun from(holidayCalender: HolidayCalender): Calender {
-                    val holidays = holidayCalender.holidays.map { Holiday.from(it) }
+                    val holidays = holidayCalender.holidays.map { Holiday.from(it, holidayCalender.locale) }
                     return Calender(
                         holidayCalender.id.toString(),
                         holidayCalender.locale.country,
@@ -60,10 +62,11 @@ class HolidayCalenderResources {
             val day: Int,
             val name: String,
             val type: Type,
+            val dayOfWeek: String,
             val description: String? = null
         ) {
             companion object {
-                fun from(holiday: io.mustelidae.riverotter.domain.calender.holiday.Holiday): Holiday {
+                fun from(holiday: io.mustelidae.riverotter.domain.calender.holiday.Holiday, locale: Locale): Holiday {
                     return holiday.run {
                         Holiday(
                             date,
@@ -71,6 +74,7 @@ class HolidayCalenderResources {
                             date.dayOfMonth,
                             name,
                             type,
+                            date.dayOfWeek.getDisplayName(TextStyle.FULL, locale),
                             description
                         )
                     }
