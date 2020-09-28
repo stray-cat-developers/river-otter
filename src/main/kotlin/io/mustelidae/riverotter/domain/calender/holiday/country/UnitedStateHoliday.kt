@@ -16,10 +16,9 @@ class UnitedStateHoliday(
     private val holidayCalenderRepository: HolidayCalenderRepository
 ) : CountryHoliday {
     override val localeOfCountry: Locale = Locale.US
-    private val countryCode = localeOfCountry.country
 
     override fun create(year: Int): ObjectId {
-        val holidayCalender = holidayCalenderRepository.findByYearAndCountry(year, countryCode)
+        val holidayCalender = holidayCalenderRepository.findByYearAndLocale(year, localeOfCountry)
         if (holidayCalender != null)
             return holidayCalender.id
 
@@ -53,6 +52,8 @@ class UnitedStateHoliday(
                 holidays.remove(weekendHoliday)
             }
         }
+
+        holidays.sortBy { it.time }
 
         return holidayCalenderRepository.save(HolidayCalender(localeOfCountry, year, holidays)).id
     }

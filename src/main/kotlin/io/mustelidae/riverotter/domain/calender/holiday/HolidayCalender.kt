@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 import java.util.Locale
-import org.bson.codecs.pojo.annotations.BsonIgnore
 
 @Document
 class HolidayCalender(

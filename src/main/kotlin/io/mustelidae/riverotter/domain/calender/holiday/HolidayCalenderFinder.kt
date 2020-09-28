@@ -11,6 +11,6 @@ class HolidayCalenderFinder(
 ) {
 
     fun findOrThrow(year: Int, locale: Locale): HolidayCalender {
-        return holidayCalenderRepository.findByYearAndCountry(year, locale.country) ?: throw DataNotFoundException("$locale ($year) is not found")
+        return holidayCalenderRepository.findByYearAndLocale(year, locale) ?: throw DataNotFoundException("$locale ($year) is not found")
     }
 }

@@ -41,7 +41,7 @@ internal class KoreaHolidayTest {
         val year = 2020
 
         val slot = slot<HolidayCalender>()
-        every { holidayCalenderRepository.findByYearAndCountry(year, any()) } returns null
+        every { holidayCalenderRepository.findByYearAndLocale(year, any()) } returns null
         every { holidayCalenderRepository.save(capture(slot)) } answers { HolidayCalender.Companion.aFixture(year) }
 
         // When

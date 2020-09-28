@@ -1,23 +1,23 @@
 package io.mustelidae.riverotter.domain.calender.api
 
+import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.domain.calender.holiday.Holiday.Type
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Locale
-import io.mustelidae.riverotter.common.AvailableCountry
 
 class HolidayCalenderResources {
 
     class Request {
         data class Crawling(
-            val year:Int? = null,
+            val year: Int? = null,
             val country: String? = null
-        ){
-            fun getYear(): Int = this.year?: LocalDate.now().plusYears(1).year
+        ) {
+            fun getYear(): Int = this.year ?: LocalDate.now().plusYears(1).year
 
             fun getLocale(): Locale? {
-                return if(country.isNullOrEmpty().not())
+                return if (country.isNullOrEmpty().not())
                     AvailableCountry.getLocale(country!!)
                 else
                     null

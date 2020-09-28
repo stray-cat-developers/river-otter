@@ -17,12 +17,11 @@ class KoreaHoliday(
 ) : CountryHoliday {
 
     override val localeOfCountry: Locale = Locale.KOREA
-    private val countryCode = localeOfCountry.country
     private val patternOfLocDate = DateTimeFormatter.ofPattern("yyyyMMdd")
     private val saturdayIsHoliday = korEnv.saturdayIsHoliday
 
     override fun create(year: Int): ObjectId {
-        val holidayCalender = holidayCalenderRepository.findByYearAndCountry(year, countryCode)
+        val holidayCalender = holidayCalenderRepository.findByYearAndLocale(year, localeOfCountry)
         if (holidayCalender != null)
             return holidayCalender.id
 
@@ -49,6 +48,8 @@ class KoreaHoliday(
                 holidays.remove(weekendHoliday)
             }
         }
+
+        holidays.sortBy { it.time }
 
         return holidayCalenderRepository.save(HolidayCalender(localeOfCountry, year, holidays)).id
     }

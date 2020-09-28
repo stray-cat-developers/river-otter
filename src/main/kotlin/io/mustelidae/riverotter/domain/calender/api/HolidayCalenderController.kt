@@ -3,10 +3,10 @@ package io.mustelidae.riverotter.domain.calender.api
 import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.common.Replies
 import io.mustelidae.riverotter.common.Reply
-import io.mustelidae.riverotter.config.AppEnvironment
 import io.mustelidae.riverotter.domain.calender.HolidayCalenderInteraction
 import io.mustelidae.riverotter.domain.calender.api.HolidayCalenderResources.Reply.Calender
 import io.mustelidae.riverotter.domain.calender.api.HolidayCalenderResources.Reply.YearOfCountry
+import io.mustelidae.riverotter.domain.calender.api.HolidayCalenderResources.Request
 import io.mustelidae.riverotter.utils.toReplies
 import io.mustelidae.riverotter.utils.toReply
 import io.swagger.annotations.Api
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import io.mustelidae.riverotter.domain.calender.api.HolidayCalenderResources.Request
 
 @Api(tags = ["Holiday calender"], description = "Holiday calender")
 @RestController
