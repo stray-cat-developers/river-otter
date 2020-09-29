@@ -1,7 +1,7 @@
-### Holiday calender crawling
+### Holiday calendar crawling
 
 
-POST {{host}}/holiday/calender/crawling
+POST {{host}}/holiday/calendar/crawling
 content-type: application/json
 
 {
@@ -14,8 +14,8 @@ content-type: application/json
  client.global.set("id", response.body.content.id)
  %}
 
-### Year calender
+### Year calendar
 
-GET {{host}}/holiday/calender/country/KR/year/{{year}}
+GET {{host}}/holiday/calendar/country/KR/year/{{year}}
 content-type: application/json
 
