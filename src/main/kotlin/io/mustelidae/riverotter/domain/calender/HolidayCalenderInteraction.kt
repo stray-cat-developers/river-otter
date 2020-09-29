@@ -5,6 +5,7 @@ import io.mustelidae.riverotter.domain.calender.holiday.Holiday
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalenderFinder
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCrawler
+import io.mustelidae.riverotter.domain.calender.yeartable.YearTableInteraction
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -15,7 +16,8 @@ import java.util.Locale
 class HolidayCalenderInteraction(
     private val environment: AppEnvironment,
     private val holidayCalenderFinder: HolidayCalenderFinder,
-    private val holidayCrawler: HolidayCrawler
+    private val holidayCrawler: HolidayCrawler,
+    private val yearTableInteraction: YearTableInteraction
 ) {
 
     fun findBy(locale: Locale, year: Int): HolidayCalender {
@@ -50,6 +52,7 @@ class HolidayCalenderInteraction(
 
     fun crawling(year: Int, locale: Locale): Pair<Locale, ObjectId> {
         val id = holidayCrawler.crawling(year, locale)
+        yearTableInteraction.save(locale, year, id)
         return Pair(locale, id)
     }
 }

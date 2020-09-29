@@ -10,6 +10,7 @@ import io.mustelidae.riverotter.domain.calender.api.HolidayCalenderResources.Req
 import io.mustelidae.riverotter.utils.toReplies
 import io.mustelidae.riverotter.utils.toReply
 import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -25,6 +26,7 @@ class HolidayCalenderController(
     private val holidayCalenderInteraction: HolidayCalenderInteraction
 ) {
 
+    @ApiOperation("Crawl holiday information.")
     @PostMapping("crawling")
     fun crawling(
         @RequestBody request: Request.Crawling
@@ -49,6 +51,7 @@ class HolidayCalenderController(
         return yearsOfCountry.toReplies()
     }
 
+    @ApiOperation("Search the holiday list by year.")
     @GetMapping("country/{country}/year/{year}")
     fun findYear(
         @PathVariable country: String,
@@ -60,6 +63,7 @@ class HolidayCalenderController(
         return Calender.from(calender).toReply()
     }
 
+    @ApiOperation("Search the holiday list using the year and month.")
     @GetMapping("country/{country}/year/{year}/month/{month}")
     fun findMonth(
         @PathVariable country: String,
@@ -72,6 +76,7 @@ class HolidayCalenderController(
             .toReplies()
     }
 
+    @ApiOperation("Search if the entered date is a holiday.")
     @GetMapping("country/{country}/year/{year}/month/{month}/day/{day}")
     fun findDay(
         @PathVariable country: String,
@@ -90,6 +95,7 @@ class HolidayCalenderController(
         return dayOfHoliday.toReply()
     }
 
+    @ApiOperation("Search if the entered date is a holiday.")
     @GetMapping("country/{country}")
     fun findDayWithParam(
         @PathVariable country: String,
