@@ -5,7 +5,6 @@ import io.mustelidae.riverotter.domain.calender.holiday.Holiday
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalender
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCalenderFinder
 import io.mustelidae.riverotter.domain.calender.holiday.HolidayCrawler
-import io.mustelidae.riverotter.domain.calender.yeartable.YearTableInteraction
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate

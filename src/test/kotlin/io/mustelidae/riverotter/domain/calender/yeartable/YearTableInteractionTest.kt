@@ -8,6 +8,7 @@ import io.mustelidae.riverotter.domain.calender.yeartable.repository.YearTableRe
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
 import java.util.Locale
+import io.mustelidae.riverotter.domain.calender.YearTableInteraction
 
 internal class YearTableInteractionTest {
 
