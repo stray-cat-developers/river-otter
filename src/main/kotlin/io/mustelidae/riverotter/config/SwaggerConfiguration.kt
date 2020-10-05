@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.Locale
 
 @EnableSwagger2
 @Configuration
@@ -26,6 +27,8 @@ class SwaggerConfiguration {
         .directModelSubstitute(LocalDate::class.java, String::class.java)
         .directModelSubstitute(LocalDateTime::class.java, String::class.java)
         .directModelSubstitute(LocalTime::class.java, String::class.java)
+        .directModelSubstitute(Locale::class.java, String::class.java)
+        .groupName("River otter")
         .select()
         .apis(RequestHandlerSelectors.basePackage("io.mustelidae.riverotter.domain"))
         .build()

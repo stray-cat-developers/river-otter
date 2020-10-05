@@ -44,12 +44,12 @@ class HolidayCalendarResources {
             val id: String,
             val country: String,
             val year: Int,
-            val days: List<Day>,
+            val holidays: List<HolidayOfCountry>,
             val createdAt: LocalDateTime
         ) {
             companion object {
                 fun from(holidayCalendar: HolidayCalendar): Calendar {
-                    val holidays = holidayCalendar.holidays.map { Day.from(it, holidayCalendar.locale) }
+                    val holidays = holidayCalendar.holidays.map { HolidayOfCountry.from(it, holidayCalendar.locale) }
                     return Calendar(
                         holidayCalendar.id.toString(),
                         holidayCalendar.locale.country,
@@ -65,7 +65,7 @@ class HolidayCalendarResources {
         data class DayOfHoliday(
             @get:JsonProperty("isHoliday")
             val isHoliday: Boolean,
-            val day: Day? = null
+            val holiday: HolidayOfCountry? = null
         ) {
             companion object {
                 fun fromNotHoliday(): DayOfHoliday = DayOfHoliday(false, null)
@@ -73,14 +73,14 @@ class HolidayCalendarResources {
                 fun fromHasHoliday(holiday: Holiday, locale: Locale): DayOfHoliday {
                     return DayOfHoliday(
                         true,
-                        Day.from(holiday, locale)
+                        HolidayOfCountry.from(holiday, locale)
                     )
                 }
             }
         }
 
         @ApiModel("HolidayCalendar.Reply.Day")
-        data class Day(
+        data class HolidayOfCountry(
             val date: LocalDate,
             val month: Int,
             val day: Int,
@@ -90,9 +90,9 @@ class HolidayCalendarResources {
             val description: String? = null
         ) {
             companion object {
-                fun from(holiday: Holiday, locale: Locale): Day {
+                fun from(holiday: Holiday, locale: Locale): HolidayOfCountry {
                     return holiday.run {
-                        Day(
+                        HolidayOfCountry(
                             date,
                             date.monthValue,
                             date.dayOfMonth,

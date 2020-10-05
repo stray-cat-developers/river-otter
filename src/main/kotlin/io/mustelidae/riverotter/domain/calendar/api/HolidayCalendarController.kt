@@ -26,7 +26,7 @@ class HolidayCalendarController(
     private val holidayCalendarInteraction: HolidayCalendarInteraction
 ) {
 
-    @ApiOperation("Crawl holiday information.")
+    @ApiOperation("Crawl holiday (support KR, US).", tags = ["River otter Manager"])
     @PostMapping("crawling")
     fun crawling(
         @RequestBody request: Request.Crawling
@@ -69,10 +69,10 @@ class HolidayCalendarController(
         @PathVariable country: String,
         @PathVariable year: Int,
         @PathVariable month: Int
-    ): Replies<HolidayCalendarResources.Reply.Day> {
+    ): Replies<HolidayCalendarResources.Reply.HolidayOfCountry> {
         val locale = AvailableCountry.getLocale(country)
         return holidayCalendarInteraction.findBy(locale, year, month)
-            .map { HolidayCalendarResources.Reply.Day.from(it, locale) }
+            .map { HolidayCalendarResources.Reply.HolidayOfCountry.from(it, locale) }
             .toReplies()
     }
 

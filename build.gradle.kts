@@ -31,7 +31,6 @@ dependencies {
 
     implementation("com.github.kittinunf.fuel:fuel:2.2.3")
 
-    testImplementation("cz.jirutka.spring:embedmongo-spring:1.3.1")
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0")
 
     testImplementation("io.mockk:mockk:1.9.3")
