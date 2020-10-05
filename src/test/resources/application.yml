@@ -1,0 +1,52 @@
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
+    org.springframework.boot.actuate: off
+    org.springframework.web: debug
+    org.springframework.boot: info
+    org.springframework.orm.jpa: debug
+    org.springframework.transaction: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type: off
+    org.hibernate.tool.schema: error
+    com.zaxxer.hikari: error
+    io.swagger.models.parameters.AbstractSerializableParameter: error
+    com.kakaomobility: debug
+
+server:
+  error:
+    include-stacktrace: always
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    lazy-initialization: true
+
+---
+spring:
+  profiles: embedded
+  data:
+    mongodb:
+      database: riverOtter
+app:
+  available-countries: KR,US
+  country:
+    korea:
+      saturday-is-holiday: true
+  client:
+    government:
+      use-dummy: true
+      host: http://apis.data.go.kr
+      key: dummy
+      timeout: 6000
+    abstract:
+      use-dummy: true
+      host: https://holidays.abstractapi.com
+      key: dummy
+      timeout: 6000
