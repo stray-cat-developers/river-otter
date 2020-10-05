@@ -5,12 +5,22 @@ import io.mustelidae.riverotter.domain.topic.repository.TopicCalendarRepository
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import java.util.Locale
 
 @Service
 class TopicCalendarInteraction(
     private val topicCalendarFinder: TopicCalendarFinder,
     private val topicCalendarRepository: TopicCalendarRepository
 ) {
+
+    fun add(locale: Locale, year: Int): ObjectId {
+        val topicCalendar = TopicCalendar(locale, year)
+        return topicCalendarRepository.save(topicCalendar).id
+    }
+
+    fun remove(id: ObjectId) {
+        topicCalendarRepository.deleteById(id)
+    }
 
     fun addHoliday(id: ObjectId, date: LocalDate, name: String, description: String? = null) {
         val topicCalendar = topicCalendarFinder.findOrThrow(id)

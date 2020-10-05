@@ -11,6 +11,21 @@ import java.util.Locale
 
 class TopicCalendarResources {
 
+    class Request {
+        data class TopicHoliday(
+            val date: LocalDate,
+            val name: String,
+            val description: String? = null
+        )
+
+        data class TopicWorkday(
+            val date: LocalDate,
+            val name: String,
+            val type: Workday.Type,
+            val description: String? = null
+        )
+    }
+
     @ApiModel("TopicCalendar.Reply")
     data class Reply(
         val id: String,

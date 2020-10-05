@@ -13,4 +13,8 @@ class TopicFinder(
     fun findOrThrow(id: ObjectId): Topic {
         return topicRepository.findByIdOrNull(id) ?: throw DataNotFoundException("topic id($id) not found")
     }
+
+    fun findAll(): List<Topic> {
+        return topicRepository.findAll()
+    }
 }

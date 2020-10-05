@@ -30,13 +30,11 @@ class Topic(
     }
 
     fun hasCalendar(locale: Locale, year: Int): Boolean {
+        if (this.calendars.isEmpty())
+            return false
+
         val calendar = this.calendars.find { it.locale == locale && it.year == year }
         return calendar != null
-    }
-
-    fun addCalendarIfNotExist(locale: Locale, year: Int) {
-        if (hasCalendar(locale, year).not())
-            addBy(TopicCalendar(locale, year))
     }
 
     fun getCalendar(locale: Locale, year: Int): TopicCalendar? {

@@ -9,6 +9,7 @@ import java.util.Locale
 @Service
 class TopicInteraction(
     private val topicFinder: TopicFinder,
+    private val topicCalendarFinder: TopicCalendarFinder,
     private val topicRepository: TopicRepository,
     private val topicCalendarInteraction: TopicCalendarInteraction
 ) {
@@ -19,15 +20,13 @@ class TopicInteraction(
     }
 
     fun remove(id: ObjectId) {
-        val topic = topicFinder.findOrThrow(id)
         topicRepository.deleteById(id)
     }
 
     fun addHoliday(id: ObjectId, locale: Locale, date: LocalDate, name: String, description: String? = null) {
         val topic = topicFinder.findOrThrow(id)
-        topic.addCalendarIfNotExist(locale, date.year)
-        val calendar = topic.getCalendar(locale, date.year)!!
-        topicCalendarInteraction.addHoliday(calendar.id, date, name, description)
+        val calendarId = addCalendarIfNotExist(topic, locale, date)
+        topicCalendarInteraction.addHoliday(calendarId, date, name, description)
     }
 
     fun removeHoliday(id: ObjectId, locale: Locale, date: LocalDate) {
@@ -40,9 +39,8 @@ class TopicInteraction(
 
     fun addWorkday(id: ObjectId, locale: Locale, date: LocalDate, name: String, type: Workday.Type, description: String? = null) {
         val topic = topicFinder.findOrThrow(id)
-        topic.addCalendarIfNotExist(locale, date.year)
-        val calendar = topic.getCalendar(locale, date.year)!!
-        topicCalendarInteraction.addWorkday(calendar.id, date, name, type, description)
+        val calendarId = addCalendarIfNotExist(topic, locale, date)
+        topicCalendarInteraction.addWorkday(calendarId, date, name, type, description)
     }
 
     fun removeWorkday(id: ObjectId, locale: Locale, date: LocalDate) {
@@ -50,6 +48,25 @@ class TopicInteraction(
         val calendar = topic.getCalendar(locale, date.year)
         if (calendar != null) {
             topicCalendarInteraction.removeWorkday(calendar.id, date)
+        }
+    }
+
+    private fun addCalendarIfNotExist(
+        topic: Topic,
+        locale: Locale,
+        date: LocalDate
+    ): ObjectId {
+        val hasCalendar = topic.hasCalendar(locale, date.year)
+
+        return if (hasCalendar.not()) {
+            val calendarId = topicCalendarInteraction.add(locale, date.year)
+            val calendar = topicCalendarFinder.findOrThrow(calendarId)
+            topic.addBy(calendar)
+            topicRepository.save(topic)
+
+            calendarId
+        } else {
+            topic.getCalendar(locale, date.year)!!.id
         }
     }
 }
