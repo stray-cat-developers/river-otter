@@ -15,13 +15,13 @@ import java.time.LocalDate
 
 @Api(tags = ["Topic calendar"], description = "Topic custom calendar")
 @RestController
-@RequestMapping("topics")
+@RequestMapping("topics/{id}")
 class TopicCalendarController(
     private val topicInteraction: TopicInteraction
 ) {
 
     @ApiOperation("Add holidays to calendar.")
-    @PostMapping("{id}/holidays/{country}")
+    @PostMapping("holidays/{country}")
     fun addHoliday(
         @PathVariable id: String,
         @PathVariable country: String,
@@ -34,7 +34,7 @@ class TopicCalendarController(
     }
 
     @ApiOperation("Remove holidays to calendar.")
-    @DeleteMapping("{id}/holidays/{country}/dates/{date}")
+    @DeleteMapping("holidays/{country}/dates/{date}")
     fun removeHoliday(
         @PathVariable id: String,
         @PathVariable country: String,
@@ -45,7 +45,7 @@ class TopicCalendarController(
     }
 
     @ApiOperation("Add workdays to calendar.")
-    @PostMapping("{id}/workdays/{country}")
+    @PostMapping("workdays/{country}")
     fun addWorkday(
         @PathVariable id: String,
         @PathVariable country: String,
@@ -58,7 +58,7 @@ class TopicCalendarController(
     }
 
     @ApiOperation("Remove workdays to calendar.")
-    @DeleteMapping("{id}/workdays/{country}/dates/{date}")
+    @DeleteMapping("workdays/{country}/dates/{date}")
     fun removeWorkday(
         @PathVariable id: String,
         @PathVariable country: String,

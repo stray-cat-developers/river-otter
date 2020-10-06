@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @Api(tags = ["Topic holiday calendar"], description = "Topic holiday calendar")
 @RestController
-@RequestMapping("topics/{id}/calendar/{country}")
+@RequestMapping("topics/{id}/calendar/country/{country}")
 class TopicHolidayCalendarController(
     private val topicHolidayCalendarInteraction: TopicHolidayCalendarInteraction
 ) {
@@ -71,7 +71,7 @@ class TopicHolidayCalendarController(
     }
 
     @ApiOperation("Search if the entered date is a topic holiday.")
-    @GetMapping("country/{country}")
+    @GetMapping()
     fun findDayWithParam(
         @PathVariable id: String,
         @PathVariable country: String,

@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController
 
 @Api(tags = ["Holiday calendar"], description = "Holiday calendar")
 @RestController
-@RequestMapping("holiday/calendar")
+@RequestMapping("calendar/holiday")
 class HolidayCalendarController(
     private val holidayCalendarInteraction: HolidayCalendarInteraction
 ) {
 
-    @ApiOperation("Crawl holiday (support KR, US).", tags = ["River otter Manager"])
+    @ApiOperation("Crawl holiday (support KR, US).", tags = ["River otter manager"])
     @PostMapping("crawling")
     fun crawling(
         @RequestBody request: Request.Crawling

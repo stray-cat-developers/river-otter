@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Api(tags = ["Holiday calendar", "River otter Manager"], description = "Stored calendar by year")
+@Api(tags = ["Holiday calendar", "River otter manager"], description = "Stored calendar by year")
 @RestController
-@RequestMapping("holiday/calendar")
+@RequestMapping("calendar/holiday")
 class YearTableController(
     private val yearTableFinder: YearTableFinder
 ) {
