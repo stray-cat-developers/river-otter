@@ -6,6 +6,7 @@ import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendarFinder
 import io.mustelidae.riverotter.domain.topic.TopicHolidayCalendarFinder
 import io.mustelidae.riverotter.domain.workingday.WorkingDayCalculator
 import io.mustelidae.riverotter.utils.toReply
+import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.bson.types.ObjectId
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
-import io.swagger.annotations.Api
 
 @Api(tags = ["Working day calculator"], description = "Calculate business days.")
 @RestController
