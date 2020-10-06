@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
+import io.swagger.annotations.Api
 
+@Api(tags = ["Working day calculator"], description = "Calculate business days.")
 @RestController
 @RequestMapping("working-day")
 class WorkingDayController(
@@ -22,7 +24,7 @@ class WorkingDayController(
     private val topicHolidayCalendarFinder: TopicHolidayCalendarFinder
 ) {
 
-    @ApiOperation("Calculate business days.", tags = ["Holiday calendar"])
+    @ApiOperation("Calculate business days based on the national calendar.")
     @GetMapping("/calendar/holiday/country/{country}/working-day")
     fun calculateWorkingDayUsingCountryHoliday(
         @PathVariable country: String,
@@ -44,7 +46,7 @@ class WorkingDayController(
             .toReply()
     }
 
-    @ApiOperation("Calculate business days.", tags = ["Topic holiday calendar"])
+    @ApiOperation("Calculate business days based on topic calendar.")
     @GetMapping("topics/{id}/calendar/country/{country}/working-day")
     fun calculateWorkingDayUsingTopicHoliday(
         @PathVariable id: String,
