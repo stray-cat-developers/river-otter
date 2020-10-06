@@ -14,8 +14,8 @@ fun List<Holiday>.searchIndex(localDate: LocalDate): Int {
     return this.binarySearch { timeComparison(it, time) }
 }
 
+private fun timeComparison(holiday: Holiday, time: Long) = (holiday.time - time).toInt()
+
 fun MutableList<Holiday>.sort() {
     this.sortBy { it.time }
 }
-
-private fun timeComparison(holiday: Holiday, time: Long) = (holiday.time - time).toInt()

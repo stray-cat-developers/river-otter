@@ -11,10 +11,26 @@ class DataNotFoundException(cause: String) : HumanException(Error(ErrorCode.H000
 
 class NotSupportCountryException(locale: Locale) : HumanException(Error(ErrorCode.H000, "not support country holiday calendar", causeBy = mapOf("locale" to locale.country)))
 
-open class CommunicationException(error: Error) : java.lang.RuntimeException(error.getMessage())
+open class CommunicationException(val error: Error) : java.lang.RuntimeException(error.getMessage())
 
-class GovernmentOpenClientException(fuelError: FuelError) : CommunicationException(Error(ErrorCode.C100))
+class GovernmentOpenClientException(fuelError: FuelError) : CommunicationException(
+    Error(
+        ErrorCode.C100,
+        "Korea Public data API call failure",
+        causeBy = mapOf(
+            "response" to String(fuelError.response.data)
+        )
+    )
+)
 
-class WorldHolidayClientException(fuelError: FuelError) : CommunicationException(Error(ErrorCode.C100))
+class WorldHolidayClientException(fuelError: FuelError) : CommunicationException(
+    Error(
+        ErrorCode.C100,
+        "Abstractapi API call failure",
+        causeBy = mapOf(
+            "response" to String(fuelError.response.data)
+        )
+    )
+)
 
-open class SystemException(error: Error) : RuntimeException(error.getMessage())
+open class SystemException(val error: Error) : RuntimeException(error.getMessage())

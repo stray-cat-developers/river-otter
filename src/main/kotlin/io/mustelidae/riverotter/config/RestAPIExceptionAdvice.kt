@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.context.request.ServletWebRequest
 import javax.servlet.http.HttpServletRequest
 
+@Suppress("unused")
 @ControllerAdvice(annotations = [RestController::class])
 class RestAPIExceptionAdvice {
     private val log = LoggerFactory.getLogger(javaClass)
@@ -24,7 +25,6 @@ class RestAPIExceptionAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     fun handleGlobalException(e: RuntimeException, request: HttpServletRequest): Map<String, Any> {
-        log.error("Unexpected error", e)
         return errorForm(request, Error(ErrorCode.S000, e.message))
     }
 
@@ -32,6 +32,20 @@ class RestAPIExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     fun handleHumanException(e: HumanException, request: HttpServletRequest): Map<String, Any> {
+        return errorForm(request, e.error)
+    }
+
+    @ExceptionHandler(value = [CommunicationException::class])
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    fun handleCommunicationException(e: CommunicationException, request: HttpServletRequest): Map<String, Any> {
+        return errorForm(request, e.error)
+    }
+
+    @ExceptionHandler(value = [SystemException::class])
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    fun handleCommunicationException(e: SystemException, request: HttpServletRequest): Map<String, Any> {
         return errorForm(request, e.error)
     }
 
@@ -69,6 +83,8 @@ class RestAPIExceptionAdvice {
         errorAttributes["status"] = "false"
         errorAttributes["code"] = error.getCode()
         errorAttributes["message"] = error.getMessage()
+
+        log.error("[${error.getCode()}] ${error.getMessage()} => ${error.getCause()}")
 
         return errorAttributes
     }
