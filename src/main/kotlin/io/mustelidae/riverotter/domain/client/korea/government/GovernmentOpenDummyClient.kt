@@ -7,8 +7,16 @@ class GovernmentOpenDummyClient : GovernmentOpenClient {
 
     override fun findAllHoliday(year: Int): GovernmentOpenResources.Reply.Holiday {
 
-        val json =
-            """
+        val json = when (year) {
+            2020 -> raw2020()
+            else -> raw2021()
+        }
+
+        return Jackson.getMapper().readValue(json)
+    }
+
+    private fun raw2020(): String =
+        """
             {
                "response":{
                   "header":{
@@ -152,8 +160,131 @@ class GovernmentOpenDummyClient : GovernmentOpenClient {
                   }
                }
             }             
-            """.trimIndent()
+        """.trimIndent()
 
-        return Jackson.getMapper().readValue(json)
-    }
+    private fun raw2021(): String =
+        """
+            {
+               "response":{
+                  "header":{
+                     "resultCode":"00",
+                     "resultMsg":"NORMAL SERVICE."
+                  },
+                  "body":{
+                     "items":{
+                        "item":[
+                           {
+                              "dateKind":"01",
+                              "dateName":"1월1일",
+                              "isHoliday":"Y",
+                              "locdate":20210101,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"설날",
+                              "isHoliday":"Y",
+                              "locdate":20210211,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"설날",
+                              "isHoliday":"Y",
+                              "locdate":20210212,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"설날",
+                              "isHoliday":"Y",
+                              "locdate":20210213,
+                              "seq":1
+                           }, 
+                           {
+                              "dateKind":"01",
+                              "dateName":"삼일절",
+                              "isHoliday":"Y",
+                              "locdate":20210301,
+                              "seq":1
+                           }, 
+                           {
+                              "dateKind":"01",
+                              "dateName":"부처님오신날",
+                              "isHoliday":"Y",
+                              "locdate":20210519,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"어린이날",
+                              "isHoliday":"Y",
+                              "locdate":20210505,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"현충일",
+                              "isHoliday":"Y",
+                              "locdate":20200606,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"광복절",
+                              "isHoliday":"Y",
+                              "locdate":20210815,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"추석",
+                              "isHoliday":"Y",
+                              "locdate":20210920,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"추석",
+                              "isHoliday":"Y",
+                              "locdate":20210921,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"추석",
+                              "isHoliday":"Y",
+                              "locdate":20210922,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"개천절",
+                              "isHoliday":"Y",
+                              "locdate":20201003,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"한글날",
+                              "isHoliday":"Y",
+                              "locdate":20211009,
+                              "seq":1
+                           },
+                           {
+                              "dateKind":"01",
+                              "dateName":"기독탄신일",
+                              "isHoliday":"Y",
+                              "locdate":20211225,
+                              "seq":1
+                           }
+                        ]
+                     },
+                     "numOfRows":50,
+                     "pageNo":1,
+                     "totalCount":15
+                  }
+               }
+            }             
+        """.trimIndent()
 }

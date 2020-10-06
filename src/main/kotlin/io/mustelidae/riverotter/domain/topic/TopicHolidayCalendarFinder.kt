@@ -1,23 +1,23 @@
 package io.mustelidae.riverotter.domain.topic
 
-import io.mustelidae.riverotter.domain.calendar.HolidayCalendarInteraction
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendar
+import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendarFinder
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.util.Locale
 
 @Service
-class TopicHolidayCalendarInteraction(
+class TopicHolidayCalendarFinder(
     private val topicFinder: TopicFinder,
-    private val holidayCalendarInteraction: HolidayCalendarInteraction
+    private val holidayCalendarFinder: HolidayCalendarFinder
 ) {
 
     fun findBy(id: ObjectId, locale: Locale, year: Int): HolidayCalendar {
         val topicCalendar = topicFinder.findOrThrow(id)
             .getCalendar(locale, year)
-        val countryHolidayCalendar = holidayCalendarInteraction.findBy(locale, year)
+        val countryHolidayCalendar = holidayCalendarFinder.findOrThrow(locale, year)
 
         val holidayMap = countryHolidayCalendar.holidays.map { it.date to it }
             .toMap()
@@ -48,7 +48,7 @@ class TopicHolidayCalendarInteraction(
         val topicCalendar = topicFinder.findOrThrow(id)
             .getCalendar(locale, year)
 
-        var holiday = holidayCalendarInteraction.findBy(locale, year, month, day)
+        var holiday = holidayCalendarFinder.findBy(locale, year, month, day)
 
         if (topicCalendar != null) {
             topicCalendar.holidays.find { it.date == date }?.let {

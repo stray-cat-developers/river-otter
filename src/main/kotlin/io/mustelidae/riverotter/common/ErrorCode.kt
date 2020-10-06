@@ -7,6 +7,7 @@ enum class ErrorCode(val desc: String) {
 
     // System error
     S000("Internal Server Error"),
+    S001("develop mistake"),
 
     // Communication error
     C000("Communication error"),

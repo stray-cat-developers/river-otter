@@ -7,6 +7,7 @@ import io.mustelidae.riverotter.domain.calendar.HolidayCalendarInteraction
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources.Reply.Calendar
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources.Reply.YearOfCountry
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources.Request
+import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendarFinder
 import io.mustelidae.riverotter.utils.toReplies
 import io.mustelidae.riverotter.utils.toReply
 import io.swagger.annotations.Api
@@ -23,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("calendar/holiday")
 class HolidayCalendarController(
-    private val holidayCalendarInteraction: HolidayCalendarInteraction
+    private val holidayCalendarInteraction: HolidayCalendarInteraction,
+    private val holidayCalendarFinder: HolidayCalendarFinder
 ) {
 
     @ApiOperation("Crawl holiday (support KR, US).", tags = ["River otter manager"])
@@ -58,7 +60,7 @@ class HolidayCalendarController(
         @PathVariable year: Int
     ): Reply<Calendar> {
         val locale = AvailableCountry.getLocale(country)
-        val calendar = holidayCalendarInteraction.findBy(locale, year)
+        val calendar = holidayCalendarFinder.findOrThrow(locale, year)
 
         return Calendar.from(calendar).toReply()
     }
@@ -71,7 +73,7 @@ class HolidayCalendarController(
         @PathVariable month: Int
     ): Replies<HolidayCalendarResources.Reply.HolidayOfCountry> {
         val locale = AvailableCountry.getLocale(country)
-        return holidayCalendarInteraction.findBy(locale, year, month)
+        return holidayCalendarFinder.findBy(locale, year, month)
             .map { HolidayCalendarResources.Reply.HolidayOfCountry.from(it, locale) }
             .toReplies()
     }
@@ -85,7 +87,7 @@ class HolidayCalendarController(
         @PathVariable day: Int
     ): Reply<HolidayCalendarResources.Reply.DayOfHoliday> {
         val locale = AvailableCountry.getLocale(country)
-        val holiday = holidayCalendarInteraction.findBy(locale, year, month, day)
+        val holiday = holidayCalendarFinder.findBy(locale, year, month, day)
 
         val dayOfHoliday = if (holiday == null)
             HolidayCalendarResources.Reply.DayOfHoliday.fromNotHoliday()

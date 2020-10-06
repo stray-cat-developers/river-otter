@@ -1,6 +1,7 @@
 package io.mustelidae.riverotter.domain.calendar.yeartable
 
 import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
 import java.util.Locale
@@ -29,7 +30,8 @@ internal class YearTableTest {
         // When
         yearTable.addBy(year, id)
         // Then
-        beforeId shouldBe id
+        val updatedYear = yearTable.yearsOfLocale.find { it.year == year }!!
+        updatedYear.id shouldNotBe beforeId
     }
 }
 

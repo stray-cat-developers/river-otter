@@ -21,12 +21,11 @@ class YearTable(
 
     fun addBy(year: Int, id: ObjectId) {
         val calendar = yearsOfLocale.find { it.year == year }
-        if (calendar == null)
-            yearsOfLocale.add(YearOfLocale(year, id))
-        else {
-            val index = yearsOfLocale.indexOf(calendar)
-            yearsOfLocale[index].id = id
-        }
+
+        if (calendar != null)
+            yearsOfLocale.remove(calendar)
+
+        yearsOfLocale.add(YearOfLocale(year, id))
         modifiedAt = LocalDateTime.now()
     }
 

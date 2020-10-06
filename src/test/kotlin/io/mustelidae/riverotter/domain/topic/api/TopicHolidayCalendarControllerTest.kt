@@ -33,7 +33,6 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
     @BeforeAll
     fun beforeAll() {
         holidayCalendarController.crawling(HolidayCalendarResources.Request.Crawling(year, country))
-
         topicId = topicController.add(TopicResources.Request("Test Topic")).content!!
     }
 

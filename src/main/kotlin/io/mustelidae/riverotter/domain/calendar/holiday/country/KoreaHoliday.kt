@@ -5,6 +5,7 @@ import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendar
 import io.mustelidae.riverotter.domain.calendar.holiday.repository.HolidayCalendarRepository
 import io.mustelidae.riverotter.domain.client.korea.government.GovernmentOpenClient
+import io.mustelidae.riverotter.utils.sort
 import org.bson.types.ObjectId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -27,7 +28,7 @@ class KoreaHoliday(
 
         val weekendHolidays = super.getWeekend(year, saturdayIsHoliday)
 
-        val publicHolidays = governmentOpenClient.findAllHoliday(2020)
+        val publicHolidays = governmentOpenClient.findAllHoliday(year)
             .response.body.items.item
             .map {
                 val date = LocalDate.parse(it.locdate.toString(), patternOfLocDate)
@@ -49,7 +50,7 @@ class KoreaHoliday(
             }
         }
 
-        holidays.sortBy { it.time }
+        holidays.sort()
 
         return holidayCalendarRepository.save(HolidayCalendar(localeOfCountry, year, holidays)).id
     }
