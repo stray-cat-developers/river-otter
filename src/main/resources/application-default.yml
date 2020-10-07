@@ -1,6 +1,6 @@
 logging:
   level:
-    io.mustelidae.grantotter: info
+    io.mustelidae.riverotter: info
     org.springframework.boot.actuate: off
     org.springframework.web: debug
     org.springframework.boot: info
