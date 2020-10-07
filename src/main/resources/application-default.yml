@@ -4,8 +4,6 @@ logging:
     org.springframework.boot.actuate: off
     org.springframework.web: debug
     org.springframework.boot: info
-    org.springframework.orm.jpa: DEBUG
-    org.springframework.transaction: DEBUG
     org.hibernate.SQL: debug
     org.hibernate.tool.schema: error
     com.zaxxer.hikari: error
