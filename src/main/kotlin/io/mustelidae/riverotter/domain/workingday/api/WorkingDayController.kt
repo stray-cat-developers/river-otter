@@ -9,6 +9,7 @@ import io.mustelidae.riverotter.utils.toReply
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.bson.types.ObjectId
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -28,7 +29,7 @@ class WorkingDayController(
     @GetMapping("/calendar/holiday/country/{country}/working-day")
     fun calculateWorkingDayUsingCountryHoliday(
         @PathVariable country: String,
-        @RequestParam date: LocalDate,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate,
         @RequestParam(required = false) businessDays: Int? = 1
     ): Reply<LocalDate> {
 
@@ -51,7 +52,7 @@ class WorkingDayController(
     fun calculateWorkingDayUsingTopicHoliday(
         @PathVariable id: String,
         @PathVariable country: String,
-        @RequestParam date: LocalDate,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) date: LocalDate,
         @RequestParam(required = false) businessDays: Int? = 1
     ): Reply<LocalDate> {
         val locale = AvailableCountry.getLocale(country)
