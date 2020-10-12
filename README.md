@@ -57,6 +57,9 @@ Swagger api page is http://localhost:6400/swagger-ui.html
     curl -X GET "http://localhost:6400/topics/5f7c3c712a1f945eeb736fdb/calendar/country/KR/year/2020/month/1" -H "accept: */*"
     ``` 
 
+# Document
+[Korean Guild](https://github.com/fennec-fox/river-otter/wiki/Korean-Guide)
+
 # Note
 
 To do the api test in river-otter, you need to do the following:
