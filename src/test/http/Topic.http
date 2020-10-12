@@ -1,0 +1,27 @@
+### Add topic
+
+POST {{host}}/topics
+content-type: application/json
+
+{
+  "name": "Test topic"
+}
+
+> {%
+ client.log(response.body.toString())
+ client.global.set("topicId", response.body.content)
+ %}
+
+### Add topic holiday
+POST {{host}}/topics/{{topicId}}/holidays/KR
+content-type: application/json
+
+{
+  "date": "2020-11-18",
+  "description": "party time!",
+  "name": "Company holiday"
+}
+
+### Find topic hoiday
+GET {{host}}/topics/{{topicId}}/calendar/country/KR/year/{{year}}/month/11
+content-type: application/json
