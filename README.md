@@ -58,7 +58,7 @@ Swagger api page is http://localhost:6400/swagger-ui.html
     ``` 
 
 # Document
-[Korean Guild](https://github.com/fennec-fox/river-otter/wiki/Korean-Guide)
+[Korean Guide](https://github.com/fennec-fox/river-otter/wiki/Korean-Guide)
 
 # Note
 
