@@ -28,6 +28,6 @@ internal class WorldHolidayStableClientTest {
 
         // Then
         holidays.size shouldBe 1
-        holidays.first().type shouldBe "public_holiday"
+        holidays.first().type shouldBe "National"
     }
 }
