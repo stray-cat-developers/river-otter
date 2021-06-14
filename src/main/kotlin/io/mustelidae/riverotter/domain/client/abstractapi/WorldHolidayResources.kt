@@ -16,7 +16,6 @@ class WorldHolidayResources {
                 val location: String,
                 val name: String,
                 val name_local: String,
-                val state: String,
                 val type: String,
                 val week_day: String
             )
