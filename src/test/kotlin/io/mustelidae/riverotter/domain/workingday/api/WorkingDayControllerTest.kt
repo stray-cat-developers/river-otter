@@ -5,6 +5,7 @@ import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarController
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
 import io.mustelidae.riverotter.domain.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Topic
+import io.mustelidae.riverotter.domain.topic.aFixture
 import io.mustelidae.riverotter.domain.topic.api.TopicCalendarController
 import io.mustelidae.riverotter.domain.topic.api.TopicCalendarResources
 import io.mustelidae.riverotter.domain.topic.repository.TopicRepository
@@ -31,7 +32,7 @@ internal class WorkingDayControllerTest : IntegrationSupport() {
 
     @BeforeAll
     fun beforeAll() {
-        val topic = Topic("calendar test")
+        val topic = Topic.aFixture()
         topicRepository.save(topic)
         topicId = topic.id.toString()
 
