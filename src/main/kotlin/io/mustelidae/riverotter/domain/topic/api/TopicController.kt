@@ -28,7 +28,7 @@ class TopicController(
     @ApiOperation("Add topic")
     @PostMapping
     fun add(@RequestBody request: TopicResources.Request): Reply<String> {
-        return topicInteraction.addBy(request.name)
+        return topicInteraction.addBy(request.name, request.code)
             .toString()
             .toReply()
     }

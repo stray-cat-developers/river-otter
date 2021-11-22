@@ -14,8 +14,13 @@ class TopicInteraction(
     private val topicCalendarInteraction: TopicCalendarInteraction
 ) {
 
-    fun addBy(name: String): ObjectId {
-        val topic = Topic(name)
+    fun addBy(name: String, code: String?): ObjectId {
+        val id = if (code == null)
+            ObjectId()
+        else
+            ObjectId(code)
+
+        val topic = Topic(id, name)
         return topicRepository.save(topic).id
     }
 

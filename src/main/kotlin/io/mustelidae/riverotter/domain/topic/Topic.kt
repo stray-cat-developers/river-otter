@@ -9,12 +9,10 @@ import java.util.Locale
 
 @Document
 class Topic(
-    val name: String,
-) {
     @Id
-    var id: ObjectId = ObjectId()
-        protected set
-
+    var id: ObjectId,
+    val name: String
+) {
     var createdAt = LocalDateTime.now()!!
         protected set
 
@@ -40,4 +38,6 @@ class Topic(
     fun getCalendar(locale: Locale, year: Int): TopicCalendar? {
         return this.calendars.find { it.locale == locale && it.year == year }
     }
+
+    companion object
 }

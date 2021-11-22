@@ -6,7 +6,8 @@ import java.time.LocalDateTime
 class TopicResources {
 
     data class Request(
-        val name: String
+        val name: String,
+        val code: String? = null
     )
 
     data class Reply(

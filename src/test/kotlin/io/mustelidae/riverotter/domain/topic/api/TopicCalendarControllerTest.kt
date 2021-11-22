@@ -5,6 +5,7 @@ import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.domain.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Topic
 import io.mustelidae.riverotter.domain.topic.Workday
+import io.mustelidae.riverotter.domain.topic.aFixture
 import io.mustelidae.riverotter.domain.topic.repository.TopicRepository
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.BeforeAll
@@ -33,7 +34,7 @@ internal class TopicCalendarControllerTest : IntegrationSupport() {
 
     @BeforeAll()
     fun beforeAll() {
-        val topic = Topic("calendar test")
+        val topic = Topic.aFixture()
         topicRepository.save(topic)
         topicId = topic.id.toString()
     }
