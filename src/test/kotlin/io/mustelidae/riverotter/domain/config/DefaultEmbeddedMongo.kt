@@ -38,7 +38,7 @@ class DefaultEmbeddedMongo(
     @PostConstruct
     fun startup() {
         val builder = MongodConfig.builder()
-            .version(Version.Main.V5_0)
+            .version(Version.Main.PRODUCTION)
             .net(Net(mongoProperties.host, port, Network.localhostIsIPv6()))
             .build()
         this.mongoExecutable = starter.prepare(builder)

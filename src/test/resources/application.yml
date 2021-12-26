@@ -36,6 +36,7 @@ spring:
   data:
     mongodb:
       database: riverOtter
+      host: 127.0.0.1
 
 app:
   available-countries: KR,US
