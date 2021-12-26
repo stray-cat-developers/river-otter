@@ -3,14 +3,15 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     java
     idea
-    id("org.springframework.boot") version "2.3.4.RELEASE"
-    id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    id("com.avast.gradle.docker-compose") version "0.13.2"
-    kotlin("jvm") version "1.4.10"
-    kotlin("plugin.noarg") version "1.4.10"
-    kotlin("plugin.spring") version "1.4.10"
-    kotlin("plugin.allopen") version "1.4.10"
-    id("org.jmailen.kotlinter") version "3.0.2"
+    id("org.springframework.boot") version "2.5.8"
+    id("io.spring.dependency-management") version "1.0.11.RELEASE"
+    id("com.avast.gradle.docker-compose") version "0.14.9"
+    kotlin("jvm") version "1.5.32"
+    kotlin("plugin.noarg") version "1.5.32"
+    kotlin("plugin.spring") version "1.5.32"
+    kotlin("plugin.allopen") version "1.5.32"
+    id("org.jmailen.kotlinter") version "3.6.0"
+    id("com.adarshr.test-logger") version "3.1.0"
 }
 
 group = "io.mustelidae"
@@ -76,22 +77,6 @@ noArg {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-
-    addTestListener(object : TestListener {
-        override fun beforeSuite(suite: TestDescriptor) {}
-        override fun beforeTest(testDescriptor: TestDescriptor) {}
-        override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
-        override fun afterSuite(suite: TestDescriptor, result: TestResult) {
-            if (suite.parent == null) {
-                val output =
-                    "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-                val startItem = "|  "
-                val endItem = "  |"
-                val repeatLength = startItem.length + output.length + endItem.length
-                println("\n${"-".repeat(repeatLength)}\n|  $output  |\n${"-".repeat(repeatLength)}")
-            }
-        }
-    })
 }
 
 tasks.withType<KotlinCompile> {
@@ -105,11 +90,21 @@ tasks.register("version") {
     println(version)
 }
 
-dockerCompose {
-// docker-compose
-    // settings as usual
-    createNested("infraSetting").apply {
-        stopContainers = false
-        useComposeFiles = listOf("docker-compose.yml")
-    }
+testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.STANDARD
+    showExceptions = true
+    showStackTraces = true
+    showFullStackTraces = false
+    showCauses = true
+    slowThreshold = 2000
+    showSummary = true
+    showSimpleNames = true
+    showPassed = true
+    showSkipped = false
+    showFailed = true
+    showStandardStreams = false
+    showPassedStandardStreams = true
+    showSkippedStandardStreams = false
+    showFailedStandardStreams = true
+    logLevel = LogLevel.LIFECYCLE
 }

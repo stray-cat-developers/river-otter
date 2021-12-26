@@ -11,7 +11,7 @@ logging:
     org.hibernate.tool.schema: error
     com.zaxxer.hikari: error
     io.swagger.models.parameters.AbstractSerializableParameter: error
-    com.kakaomobility: debug
+    io.mustelidae.riverotter: debug
 
 server:
   error:
@@ -30,10 +30,14 @@ spring:
 
 ---
 spring:
-  profiles: embedded
+  config:
+    activate:
+      on-profile: embedded
   data:
     mongodb:
       database: riverOtter
+      host: 127.0.0.1
+
 app:
   available-countries: KR,US
   country:

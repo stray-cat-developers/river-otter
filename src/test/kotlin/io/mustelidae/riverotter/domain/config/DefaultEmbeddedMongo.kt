@@ -5,7 +5,7 @@ import com.mongodb.client.MongoClients
 import de.flapdoodle.embed.mongo.MongodExecutable
 import de.flapdoodle.embed.mongo.MongodProcess
 import de.flapdoodle.embed.mongo.MongodStarter
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder
+import de.flapdoodle.embed.mongo.config.MongodConfig
 import de.flapdoodle.embed.mongo.config.Net
 import de.flapdoodle.embed.mongo.distribution.Version
 import de.flapdoodle.embed.process.runtime.Network
@@ -37,7 +37,7 @@ class DefaultEmbeddedMongo(
 
     @PostConstruct
     fun startup() {
-        val builder = MongodConfigBuilder()
+        val builder = MongodConfig.builder()
             .version(Version.Main.PRODUCTION)
             .net(Net(mongoProperties.host, port, Network.localhostIsIPv6()))
             .build()
@@ -48,7 +48,7 @@ class DefaultEmbeddedMongo(
     @Bean
     @Throws(IOException::class)
     fun mongoTemplate(): MongoTemplate {
-        val mongoClient = MongoClients.create(ConnectionString("mongodb://localhost:$port"))
+        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$port"))
         return MongoTemplate(mongoClient, mongoProperties.database)
     }
 
