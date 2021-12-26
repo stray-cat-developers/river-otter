@@ -15,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Lazy
+import org.springframework.core.annotation.Order
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Component
 import java.io.IOException
@@ -23,6 +24,7 @@ import javax.annotation.PreDestroy
 import kotlin.random.Random
 
 @Lazy(false)
+@Order(1)
 @Import(value = [EmbeddedMongoAutoConfiguration::class])
 @Component
 @EnableConfigurationProperties(value = [MongoProperties::class])
