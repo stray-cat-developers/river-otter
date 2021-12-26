@@ -94,7 +94,7 @@ testlogger {
     theme = com.adarshr.gradle.testlogger.theme.ThemeType.STANDARD
     showExceptions = true
     showStackTraces = true
-    showFullStackTraces = true
+    showFullStackTraces = false
     showCauses = true
     slowThreshold = 2000
     showSummary = true

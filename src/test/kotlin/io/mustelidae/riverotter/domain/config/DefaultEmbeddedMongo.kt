@@ -38,7 +38,7 @@ class DefaultEmbeddedMongo(
     @PostConstruct
     fun startup() {
         val builder = MongodConfig.builder()
-            .version(Version.Main.PRODUCTION)
+            .version(Version.Main.V5_0)
             .net(Net(mongoProperties.host, port, Network.localhostIsIPv6()))
             .build()
         this.mongoExecutable = starter.prepare(builder)
@@ -48,7 +48,7 @@ class DefaultEmbeddedMongo(
     @Bean
     @Throws(IOException::class)
     fun mongoTemplate(): MongoTemplate {
-        val mongoClient = MongoClients.create(ConnectionString("mongodb://localhost:$port"))
+        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$port"))
         return MongoTemplate(mongoClient, mongoProperties.database)
     }
 
