@@ -22,6 +22,8 @@ repositories {
     mavenCentral()
 }
 
+ext["log4j2.version"] = "2.17.0"
+
 dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
