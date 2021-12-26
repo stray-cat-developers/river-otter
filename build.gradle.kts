@@ -11,6 +11,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.32"
     kotlin("plugin.allopen") version "1.5.32"
     id("org.jmailen.kotlinter") version "3.6.0"
+    id("com.adarshr.test-logger") version "3.1.0"
 }
 
 group = "io.mustelidae"
@@ -76,22 +77,6 @@ noArg {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-
-    addTestListener(object : TestListener {
-        override fun beforeSuite(suite: TestDescriptor) {}
-        override fun beforeTest(testDescriptor: TestDescriptor) {}
-        override fun afterTest(testDescriptor: TestDescriptor, result: TestResult) {}
-        override fun afterSuite(suite: TestDescriptor, result: TestResult) {
-            if (suite.parent == null) {
-                val output =
-                    "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-                val startItem = "|  "
-                val endItem = "  |"
-                val repeatLength = startItem.length + output.length + endItem.length
-                println("\n${"-".repeat(repeatLength)}\n|  $output  |\n${"-".repeat(repeatLength)}")
-            }
-        }
-    })
 }
 
 tasks.withType<KotlinCompile> {
@@ -103,4 +88,23 @@ tasks.withType<KotlinCompile> {
 
 tasks.register("version") {
     println(version)
+}
+
+testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.STANDARD
+    showExceptions = true
+    showStackTraces = true
+    showFullStackTraces = false
+    showCauses = true
+    slowThreshold = 2000
+    showSummary = true
+    showSimpleNames = false
+    showPassed = true
+    showSkipped = true
+    showFailed = true
+    showStandardStreams = false
+    showPassedStandardStreams = true
+    showSkippedStandardStreams = true
+    showFailedStandardStreams = true
+    logLevel = LogLevel.LIFECYCLE
 }
