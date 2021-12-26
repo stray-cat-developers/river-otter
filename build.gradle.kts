@@ -94,17 +94,17 @@ testlogger {
     theme = com.adarshr.gradle.testlogger.theme.ThemeType.STANDARD
     showExceptions = true
     showStackTraces = true
-    showFullStackTraces = false
+    showFullStackTraces = true
     showCauses = true
     slowThreshold = 2000
     showSummary = true
-    showSimpleNames = false
+    showSimpleNames = true
     showPassed = true
-    showSkipped = true
+    showSkipped = false
     showFailed = true
     showStandardStreams = false
     showPassedStandardStreams = true
-    showSkippedStandardStreams = true
+    showSkippedStandardStreams = false
     showFailedStandardStreams = true
     logLevel = LogLevel.LIFECYCLE
 }
