@@ -19,8 +19,6 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenLocal()
-    jcenter()
-    maven("https://palantir.bintray.com/releases/")
     mavenCentral()
 }
 
@@ -31,22 +29,22 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
 
-    implementation("com.github.kittinunf.fuel:fuel:2.2.3")
+    implementation("com.github.kittinunf.fuel:fuel:2.3.1")
 
-    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:2.2.0")
+    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.2.4")
 
-    testImplementation("io.mockk:mockk:1.9.3")
+    testImplementation("io.mockk:mockk:1.12.1")
     implementation("io.springfox:springfox-swagger2:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("io.springfox:springfox-bean-validators:3.0.0")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
 
-    implementation("jakarta.persistence:jakarta.persistence-api:2.2.3")
+    implementation("jakarta.persistence:jakarta.persistence-api:3.0.0")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
