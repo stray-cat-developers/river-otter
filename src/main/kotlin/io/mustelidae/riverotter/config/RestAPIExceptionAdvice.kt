@@ -53,7 +53,7 @@ class RestAPIExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     fun handleIllegalArgumentException(e: IllegalArgumentException, request: HttpServletRequest): Map<String, Any> {
-        return errorForm(request, Error(ErrorCode.H001, e.message))
+        return errorForm(request, Error(ErrorCode.HI00, e.message))
     }
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
@@ -63,7 +63,7 @@ class RestAPIExceptionAdvice {
         exception: MethodArgumentNotValidException,
         request: HttpServletRequest
     ): MutableMap<String, Any> {
-        val error = errorForm(request, Error(ErrorCode.H001))
+        val error = errorForm(request, Error(ErrorCode.HI00))
 
         error["errors"]?.let {
             @Suppress("UNCHECKED_CAST")

@@ -63,6 +63,8 @@ dependencies {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
         exclude(group = "junit", module = "junit")
     }
+    testImplementation("org.springframework.boot:spring-boot-starter-hateoas")
+
 }
 
 allOpen {
