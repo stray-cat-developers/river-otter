@@ -1,4 +1,4 @@
-package io.mustelidae.riverotter.domain.config
+package io.mustelidae.riverotter.config
 
 import io.mustelidae.riverotter.RiverOtterApplication
 import org.junit.jupiter.api.extension.ExtendWith

@@ -3,7 +3,7 @@ package io.mustelidae.riverotter.domain.topic.api
 import io.kotlintest.matchers.asClue
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
-import io.mustelidae.riverotter.domain.config.FlowTestSupport
+import io.mustelidae.riverotter.config.FlowTestSupport
 import io.mustelidae.riverotter.flow.topic.TopicControllerFlow
 import io.mustelidae.riverotter.flow.topic.TopicScheduleControllerFlow
 import org.junit.jupiter.api.Test

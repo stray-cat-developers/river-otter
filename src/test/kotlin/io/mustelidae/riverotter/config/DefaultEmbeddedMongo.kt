@@ -1,4 +1,4 @@
-package io.mustelidae.riverotter.domain.config
+package io.mustelidae.riverotter.config
 
 import com.mongodb.ConnectionString
 import com.mongodb.client.MongoClients
