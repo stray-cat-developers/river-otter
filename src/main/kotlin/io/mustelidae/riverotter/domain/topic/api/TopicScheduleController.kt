@@ -7,8 +7,10 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
 import org.bson.types.ObjectId
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -23,7 +25,7 @@ class TopicScheduleController(
 
     @ApiOperation("Add work schedule to topic")
     @PostMapping("work-schedule")
-    fun addSchedule(
+    fun add(
         @PathVariable id: String,
         @RequestBody request: TopicResources.WorkSchedule
     ): Reply<Unit> {
@@ -33,8 +35,8 @@ class TopicScheduleController(
     }
 
     @ApiOperation("Add work schedule to topic")
-    @PostMapping("work-schedule/{dayOfWeek}")
-    fun modifySchedule(
+    @PutMapping("work-schedule/{dayOfWeek}")
+    fun modify(
         @PathVariable id: String,
         @ApiParam(value = "ex) MONDAY, TUESDAY, WEDNESDAY ...")
         @PathVariable dayOfWeek: String,
@@ -44,6 +46,16 @@ class TopicScheduleController(
         val dow = DayOfWeek.valueOf(dayOfWeek.uppercase())
 
         topicWorkScheduleInteraction.modify(topicId, dow, request)
+        return Unit.toReply()
+    }
+
+    @ApiOperation("Remove work schedule to topic")
+    @DeleteMapping("work-schedule")
+    fun remove(
+        @PathVariable id: String
+    ): Reply<Unit> {
+        val topicId = ObjectId(id)
+        topicWorkScheduleInteraction.remove(topicId)
         return Unit.toReply()
     }
 }

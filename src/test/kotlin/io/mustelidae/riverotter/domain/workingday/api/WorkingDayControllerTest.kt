@@ -1,9 +1,9 @@
 package io.mustelidae.riverotter.domain.workingday.api
 
 import io.kotlintest.shouldBe
+import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarController
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
-import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Topic
 import io.mustelidae.riverotter.domain.topic.aFixture
 import io.mustelidae.riverotter.domain.topic.api.TopicCalendarController

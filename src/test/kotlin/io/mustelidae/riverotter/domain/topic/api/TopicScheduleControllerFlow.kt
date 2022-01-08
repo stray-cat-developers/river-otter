@@ -1,7 +1,5 @@
-package io.mustelidae.riverotter.flow.topic
+package io.mustelidae.riverotter.domain.topic.api
 
-import io.mustelidae.riverotter.domain.topic.api.TopicResources
-import io.mustelidae.riverotter.domain.topic.api.TopicScheduleController
 import io.mustelidae.riverotter.utils.toJson
 import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.MediaType
@@ -60,7 +58,7 @@ class TopicScheduleControllerFlow(
 
     fun addWorkSchedule(topicId: String, request: TopicResources.WorkSchedule) {
 
-        val uri = linkTo<TopicScheduleController> { addSchedule(topicId, request) }.toUri()
+        val uri = linkTo<TopicScheduleController> { add(topicId, request) }.toUri()
 
         mockMvc.post(uri) {
             contentType = MediaType.APPLICATION_JSON
@@ -72,7 +70,7 @@ class TopicScheduleControllerFlow(
 
     fun modifySchedule(topicId: String, dayOfWeek: DayOfWeek, request: TopicResources.WorkSchedule.Schedule) {
 
-        val uri = linkTo<TopicScheduleController> { modifySchedule(topicId, dayOfWeek, request) }.toUri()
+        val uri = linkTo<TopicScheduleController> { modify(topicId, dayOfWeek.toString(), request) }.toUri()
 
         mockMvc.put(uri) {
             contentType = MediaType.APPLICATION_JSON

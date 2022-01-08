@@ -11,7 +11,6 @@ import java.time.DayOfWeek
 @Service
 class TopicWorkScheduleInteraction(
     private val topicFinder: TopicFinder,
-    private val topicCalendarFinder: TopicCalendarFinder,
     private val topicRepository: TopicRepository
 ) {
 
@@ -44,12 +43,14 @@ class TopicWorkScheduleInteraction(
             DayOfWeek.SATURDAY -> topic.workSchedule!!.sat = workTime
             DayOfWeek.SUNDAY -> topic.workSchedule!!.sun = workTime
         }
+
+        topicRepository.save(topic)
     }
 
     fun remove(
-        topicId: String
+        topicId: ObjectId,
     ) {
-        val topic = topicFinder.findOrThrow(ObjectId(topicId))
+        val topic = topicFinder.findOrThrow(topicId)
         topic.workSchedule = null
         topicRepository.save(topic)
     }

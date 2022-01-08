@@ -2,10 +2,10 @@ package io.mustelidae.riverotter.domain.topic.api
 
 import io.kotlintest.matchers.asClue
 import io.kotlintest.shouldBe
+import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarController
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
-import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Workday
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test

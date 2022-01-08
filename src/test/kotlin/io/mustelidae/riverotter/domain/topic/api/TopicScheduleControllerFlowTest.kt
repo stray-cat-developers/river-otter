@@ -4,21 +4,17 @@ import io.kotlintest.matchers.asClue
 import io.kotlintest.shouldBe
 import io.kotlintest.shouldNotBe
 import io.mustelidae.riverotter.config.FlowTestSupport
-import io.mustelidae.riverotter.flow.topic.TopicControllerFlow
-import io.mustelidae.riverotter.flow.topic.TopicScheduleControllerFlow
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
 import java.time.DayOfWeek
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class TopicScheduleControllerFlowTest : FlowTestSupport() {
-
-    private val topicControllerFlow = TopicControllerFlow(mockMvc)
-    private val topicScheduleControllerFlow = TopicScheduleControllerFlow(mockMvc)
 
     @Test
     fun addWorkSchedule() {
         // Given
+        val topicControllerFlow = TopicControllerFlow(mockMvc)
+        val topicScheduleControllerFlow = TopicScheduleControllerFlow(mockMvc)
+
         val request = topicScheduleControllerFlow.getRequestWorkSchedule()
         val topicName = "schedule Test"
         val topicId = topicControllerFlow.addTopic(topicName)
@@ -49,6 +45,9 @@ internal class TopicScheduleControllerFlowTest : FlowTestSupport() {
     @Test
     fun modifySchedule() {
         // Given
+        val topicControllerFlow = TopicControllerFlow(mockMvc)
+        val topicScheduleControllerFlow = TopicScheduleControllerFlow(mockMvc)
+
         val request = topicScheduleControllerFlow.getRequestWorkSchedule()
         val topicName = "schedule modify Test"
         val topicId = topicControllerFlow.addTopic(topicName)

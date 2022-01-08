@@ -1,8 +1,6 @@
-package io.mustelidae.riverotter.flow.topic
+package io.mustelidae.riverotter.domain.topic.api
 
 import io.mustelidae.riverotter.common.Reply
-import io.mustelidae.riverotter.domain.topic.api.TopicController
-import io.mustelidae.riverotter.domain.topic.api.TopicResources
 import io.mustelidae.riverotter.utils.fromJson
 import io.mustelidae.riverotter.utils.toJson
 import org.springframework.hateoas.server.mvc.linkTo
@@ -33,7 +31,7 @@ class TopicControllerFlow(
     }
 
     fun findTopic(topicId: String): TopicResources.ReplyWithCalendar {
-        val uri = linkTo<TopicController> { findTopic(topicId) }.toUri()
+        val uri = linkTo<TopicController> { find(topicId) }.toUri()
         return mockMvc.get(uri) {
             contentType = MediaType.APPLICATION_JSON
         }.andExpect {
