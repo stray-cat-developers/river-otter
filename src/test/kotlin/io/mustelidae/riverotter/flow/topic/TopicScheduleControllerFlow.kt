@@ -7,6 +7,8 @@ import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.put
+import java.time.DayOfWeek
 import java.time.LocalTime
 
 class TopicScheduleControllerFlow(
@@ -61,6 +63,18 @@ class TopicScheduleControllerFlow(
         val uri = linkTo<TopicScheduleController> { addSchedule(topicId, request) }.toUri()
 
         mockMvc.post(uri) {
+            contentType = MediaType.APPLICATION_JSON
+            content = request.toJson()
+        }.andExpect {
+            status { is2xxSuccessful() }
+        }
+    }
+
+    fun modifySchedule(topicId: String, dayOfWeek: DayOfWeek, request: TopicResources.WorkSchedule.Schedule) {
+
+        val uri = linkTo<TopicScheduleController> { modifySchedule(topicId, dayOfWeek, request) }.toUri()
+
+        mockMvc.put(uri) {
             contentType = MediaType.APPLICATION_JSON
             content = request.toJson()
         }.andExpect {

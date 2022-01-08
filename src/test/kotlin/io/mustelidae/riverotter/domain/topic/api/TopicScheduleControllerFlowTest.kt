@@ -8,6 +8,7 @@ import io.mustelidae.riverotter.flow.topic.TopicControllerFlow
 import io.mustelidae.riverotter.flow.topic.TopicScheduleControllerFlow
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import java.time.DayOfWeek
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class TopicScheduleControllerFlowTest : FlowTestSupport() {
@@ -42,6 +43,33 @@ internal class TopicScheduleControllerFlowTest : FlowTestSupport() {
             it.mon.is24Hours shouldBe request.mon.is24Hours
             it.mon.startTime shouldBe request.mon.startTime
             it.mon.endTime shouldBe request.mon.endTime
+        }
+    }
+
+    @Test
+    fun modifySchedule() {
+        // Given
+        val request = topicScheduleControllerFlow.getRequestWorkSchedule()
+        val topicName = "schedule modify Test"
+        val topicId = topicControllerFlow.addTopic(topicName)
+        topicScheduleControllerFlow.addWorkSchedule(topicId, request)
+        val mondaySchedule = TopicResources.WorkSchedule.Schedule(
+            isOn = false,
+            is24Hours = false
+        )
+
+        // When
+        topicScheduleControllerFlow.modifySchedule(topicId, DayOfWeek.MONDAY, mondaySchedule)
+
+        // Then
+        val reply = topicControllerFlow.findTopic(topicId)
+
+        reply.workSchedule shouldNotBe null
+        reply.workSchedule!!.mon.asClue {
+            it.isOn shouldBe mondaySchedule.isOn
+            it.is24Hours shouldBe mondaySchedule.is24Hours
+            it.endTime shouldBe mondaySchedule.endTime
+            it.startTime shouldBe mondaySchedule.startTime
         }
     }
 }
