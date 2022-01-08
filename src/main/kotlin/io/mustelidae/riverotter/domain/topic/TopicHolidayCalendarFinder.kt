@@ -19,20 +19,20 @@ class TopicHolidayCalendarFinder(
             .getCalendar(locale, year)
         val countryHolidayCalendar = holidayCalendarFinder.findOrThrow(locale, year)
 
-        val holidayMap = countryHolidayCalendar.holidays.map { it.date to it }
-            .toMap()
+        val holidayMap = countryHolidayCalendar.holidays.associateBy { it.date }
             .toMutableMap()
 
-        topicCalendar?.let { calendar ->
+        if(topicCalendar != null) {
+            // 토픽의 휴일도 합친다.
             holidayMap.putAll(
-                calendar.holidays.map { it.date to it }.toMap()
+                topicCalendar.holidays.associateBy { it.date }
             )
 
-            val workdays = calendar.workdays.map { it.date }
-
-            workdays.forEach {
-                holidayMap.remove(it)
-            }
+            // 토픽이 일하는 날짜는 모두 휴일에서 제거한다.
+            topicCalendar.workdays.map { it.date }
+                .forEach {
+                    holidayMap.remove(it)
+                }
         }
 
         return HolidayCalendar(locale, year, holidayMap.values.toList())
