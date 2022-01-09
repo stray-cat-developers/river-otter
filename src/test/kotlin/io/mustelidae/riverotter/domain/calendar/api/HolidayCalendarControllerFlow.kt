@@ -3,7 +3,6 @@ package io.mustelidae.riverotter.domain.calendar.api
 import io.mustelidae.riverotter.common.Replies
 import io.mustelidae.riverotter.utils.fromJson
 import io.mustelidae.riverotter.utils.toJson
-import org.junit.jupiter.api.Test
 import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc

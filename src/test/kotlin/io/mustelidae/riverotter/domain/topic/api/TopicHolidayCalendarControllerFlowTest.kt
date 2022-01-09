@@ -37,7 +37,7 @@ class TopicHolidayCalendarControllerFlowTest : FlowTestSupport() {
                 endTime = LocalTime.of(23, 0, 0)
             ),
             TopicResources.WorkSchedule.Schedule(
-                isOn = false,
+                isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
                 endTime = LocalTime.of(23, 0, 0)
@@ -60,9 +60,10 @@ class TopicHolidayCalendarControllerFlowTest : FlowTestSupport() {
         topicScheduleControllerFlow.addWorkSchedule(topicId, workSchedule)
 
         // When
-        val yearOfCountries = holidayCalendarControllerFlow.crawling()
+        holidayCalendarControllerFlow.crawling()
         val reply = topicHolidayCalendarControllerFlow.getYear(topicId)
 
+        reply.holidays.size shouldBe 64
         reply.holidays.find { it.date.dayOfWeek == DayOfWeek.SUNDAY } shouldBe null
     }
 }

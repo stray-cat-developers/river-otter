@@ -3,6 +3,7 @@ package io.mustelidae.riverotter.domain.topic.synchronization
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.topic.TopicCalendar
 import io.mustelidae.riverotter.domain.topic.WorkSchedule
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 class DayTopicHolidaySynchronization(
@@ -14,6 +15,13 @@ class DayTopicHolidaySynchronization(
 
     override fun syncWorkSchedule(workSchedule: WorkSchedule) {
         topicHoliday = makeHolidayOwingToWorkSchedule(date, workSchedule)
+
+        // Remove working days on weekends.
+        if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn)
+            topicHoliday = null
+
+        if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn)
+            topicHoliday = null
     }
 
     override fun syncTopicCalendar(topicCalendar: TopicCalendar) {

@@ -3,6 +3,7 @@ package io.mustelidae.riverotter.domain.topic.synchronization
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.topic.TopicCalendar
 import io.mustelidae.riverotter.domain.topic.WorkSchedule
+import java.time.DayOfWeek
 import java.time.LocalDate
 import kotlin.streams.toList
 
@@ -23,12 +24,10 @@ class YearTopicHolidaySynchronization(
                 topicHolidays[date] = holiday
 
             // Remove working days on weekends.
-            if (workSchedule.sat.isOn && topicHolidays.contains(date))
+            if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn && topicHolidays.contains(date))
                 topicHolidays.remove(date)
 
-            val hasDate = topicHolidays.containsKey(date)
-
-            if (workSchedule.sun.isOn && hasDate)
+            if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn && topicHolidays.contains(date))
                 topicHolidays.remove(date)
         }
     }
