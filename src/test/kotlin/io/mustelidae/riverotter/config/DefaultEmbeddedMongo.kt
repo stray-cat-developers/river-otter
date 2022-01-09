@@ -47,7 +47,7 @@ class DefaultEmbeddedMongo(
     @Bean
     @Throws(IOException::class)
     fun mongoTemplate(): MongoTemplate {
-        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$mongoProperties.port"))
+        val mongoClient = MongoClients.create("mongodb://${mongoProperties.host}")
         return MongoTemplate(mongoClient, mongoProperties.database)
     }
 
