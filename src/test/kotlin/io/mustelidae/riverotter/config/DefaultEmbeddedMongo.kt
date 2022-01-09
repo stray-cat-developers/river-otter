@@ -1,6 +1,5 @@
 package io.mustelidae.riverotter.config
 
-import com.mongodb.ConnectionString
 import com.mongodb.client.MongoClients
 import de.flapdoodle.embed.mongo.MongodExecutable
 import de.flapdoodle.embed.mongo.MongodProcess
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component
 import java.io.IOException
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
-import kotlin.random.Random
 
 @Lazy(false)
 @Import(value = [EmbeddedMongoAutoConfiguration::class])
