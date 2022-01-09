@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component
 import java.io.IOException
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
-import kotlin.random.Random
 
 @Lazy(false)
 @Import(value = [EmbeddedMongoAutoConfiguration::class])
