@@ -20,6 +20,8 @@ class Topic(
     var calendars: MutableList<TopicCalendar> = arrayListOf()
         protected set
 
+    var workSchedule: WorkSchedule? = null
+
     fun addBy(topicCalendar: TopicCalendar) {
         if (hasCalendar(topicCalendar.locale, topicCalendar.year))
             throw IllegalArgumentException("already exists topic calender")
@@ -38,6 +40,8 @@ class Topic(
     fun getCalendar(locale: Locale, year: Int): TopicCalendar? {
         return this.calendars.find { it.locale == locale && it.year == year }
     }
+
+    fun hasWorkSchedule(): Boolean = (workSchedule == null)
 
     companion object
 }

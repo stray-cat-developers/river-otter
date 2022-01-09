@@ -1,7 +1,7 @@
 package io.mustelidae.riverotter.domain.topic.api
 
 import io.kotlintest.shouldBe
-import io.mustelidae.riverotter.domain.config.IntegrationSupport
+import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.repository.TopicRepository
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test

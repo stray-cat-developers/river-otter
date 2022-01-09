@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
 internal object Jackson {
@@ -17,3 +18,6 @@ internal object Jackson {
 
     fun getMapper(): ObjectMapper = mapper
 }
+
+internal fun <T> T.toJson(): String = Jackson.getMapper().writeValueAsString(this)
+internal inline fun <reified T> String.fromJson(): T = Jackson.getMapper().readValue(this)

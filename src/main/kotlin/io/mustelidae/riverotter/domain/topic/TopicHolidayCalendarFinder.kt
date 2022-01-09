@@ -3,6 +3,8 @@ package io.mustelidae.riverotter.domain.topic
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendar
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendarFinder
+import io.mustelidae.riverotter.domain.topic.synchronization.DayTopicHolidaySynchronization
+import io.mustelidae.riverotter.domain.topic.synchronization.YearTopicHolidaySynchronization
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -15,27 +17,21 @@ class TopicHolidayCalendarFinder(
 ) {
 
     fun findBy(id: ObjectId, locale: Locale, year: Int): HolidayCalendar {
-        val topicCalendar = topicFinder.findOrThrow(id)
-            .getCalendar(locale, year)
+        val topic = topicFinder.findOrThrow(id)
+        val topicCalendar = topic.getCalendar(locale, year)
         val countryHolidayCalendar = holidayCalendarFinder.findOrThrow(locale, year)
 
-        val holidayMap = countryHolidayCalendar.holidays.map { it.date to it }
-            .toMap()
-            .toMutableMap()
+        val holidaySynchronization = YearTopicHolidaySynchronization(countryHolidayCalendar.holidays)
 
-        topicCalendar?.let { calendar ->
-            holidayMap.putAll(
-                calendar.holidays.map { it.date to it }.toMap()
-            )
-
-            val workdays = calendar.workdays.map { it.date }
-
-            workdays.forEach {
-                holidayMap.remove(it)
-            }
+        topic.workSchedule?.let {
+            holidaySynchronization.syncWorkSchedule(it)
         }
 
-        return HolidayCalendar(locale, year, holidayMap.values.toList())
+        topicCalendar?.let {
+            holidaySynchronization.syncTopicCalendar(it)
+        }
+
+        return HolidayCalendar(locale, year, holidaySynchronization.getHolidays())
     }
 
     fun findBy(id: ObjectId, locale: Locale, year: Int, month: Int): List<Holiday> {
@@ -45,21 +41,20 @@ class TopicHolidayCalendarFinder(
 
     fun findBy(id: ObjectId, locale: Locale, year: Int, month: Int, day: Int): Holiday? {
         val date = LocalDate.of(year, month, day)
-        val topicCalendar = topicFinder.findOrThrow(id)
-            .getCalendar(locale, year)
+        val topic = topicFinder.findOrThrow(id)
+        val topicCalendar = topic.getCalendar(locale, year)
+        val countryHoliday = holidayCalendarFinder.findBy(locale, year, month, day)
 
-        var holiday = holidayCalendarFinder.findBy(locale, year, month, day)
+        val holidaySynchronization = DayTopicHolidaySynchronization(date, countryHoliday)
 
-        if (topicCalendar != null) {
-            topicCalendar.holidays.find { it.date == date }?.let {
-                holiday = it
-            }
-
-            topicCalendar.workdays.find { it.date == date }?.let {
-                holiday = null
-            }
+        topic.workSchedule?.let {
+            holidaySynchronization.syncWorkSchedule(it)
         }
 
-        return holiday
+        topicCalendar?.let {
+            holidaySynchronization.syncTopicCalendar(it)
+        }
+
+        return holidaySynchronization.getHoliday()
     }
 }

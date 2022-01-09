@@ -17,6 +17,7 @@ class Holiday(
     enum class Type {
         PUBLIC_HOLIDAY,
         WEEKEND_HOLIDAY,
-        TOPIC_HOLIDAY
+        TOPIC_HOLIDAY,
+        SCHEDULE_HOLIDAY
     }
 }

@@ -2,7 +2,7 @@ package io.mustelidae.riverotter.domain.topic.api
 
 import io.kotlintest.shouldBe
 import io.mustelidae.riverotter.common.AvailableCountry
-import io.mustelidae.riverotter.domain.config.IntegrationSupport
+import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Topic
 import io.mustelidae.riverotter.domain.topic.Workday
 import io.mustelidae.riverotter.domain.topic.aFixture

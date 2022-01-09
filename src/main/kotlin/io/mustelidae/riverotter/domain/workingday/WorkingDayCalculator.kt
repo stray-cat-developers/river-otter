@@ -33,6 +33,6 @@ class WorkingDayCalculator(
             plusDay++
             workDay--
         }
-        throw SystemException(Error(ErrorCode.S001, "An error occurred in the business day calculator."))
+        throw SystemException(Error(ErrorCode.PD01, "An error occurred in the business day calculator."))
     }
 }

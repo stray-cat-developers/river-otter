@@ -1,7 +1,6 @@
-package io.mustelidae.riverotter.domain.config
+package io.mustelidae.riverotter.config
 
 import io.mustelidae.riverotter.RiverOtterApplication
-import io.mustelidae.riverotter.config.SwaggerConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.ActiveProfiles
