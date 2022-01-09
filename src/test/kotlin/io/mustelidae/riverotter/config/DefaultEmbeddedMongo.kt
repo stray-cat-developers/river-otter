@@ -33,13 +33,12 @@ class DefaultEmbeddedMongo(
     lateinit var mongoExecutable: MongodExecutable
     lateinit var mongoProcess: MongodProcess
     private val starter = MongodStarter.getDefaultInstance()
-    var port: Int = Random.nextInt(27000, 27999)
 
     @PostConstruct
     fun startup() {
         val builder = MongodConfig.builder()
             .version(Version.Main.PRODUCTION)
-            .net(Net(mongoProperties.host, port, Network.localhostIsIPv6()))
+            .net(Net(mongoProperties.port, Network.localhostIsIPv6()))
             .build()
         this.mongoExecutable = starter.prepare(builder)
         this.mongoProcess = this.mongoExecutable.start()
@@ -48,7 +47,7 @@ class DefaultEmbeddedMongo(
     @Bean
     @Throws(IOException::class)
     fun mongoTemplate(): MongoTemplate {
-        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$port"))
+        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$mongoProperties.port"))
         return MongoTemplate(mongoClient, mongoProperties.database)
     }
 
