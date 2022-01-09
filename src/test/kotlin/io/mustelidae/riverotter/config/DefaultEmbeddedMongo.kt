@@ -1,5 +1,6 @@
 package io.mustelidae.riverotter.config
 
+import com.mongodb.ConnectionString
 import com.mongodb.client.MongoClients
 import de.flapdoodle.embed.mongo.MongodExecutable
 import de.flapdoodle.embed.mongo.MongodProcess
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component
 import java.io.IOException
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
+import kotlin.random.Random
 
 @Lazy(false)
 @Import(value = [EmbeddedMongoAutoConfiguration::class])
@@ -31,12 +33,12 @@ class DefaultEmbeddedMongo(
     lateinit var mongoExecutable: MongodExecutable
     lateinit var mongoProcess: MongodProcess
     private val starter = MongodStarter.getDefaultInstance()
-
+    var port: Int = Network.getFreeServerPort()
     @PostConstruct
     fun startup() {
         val builder = MongodConfig.builder()
             .version(Version.Main.PRODUCTION)
-            .net(Net(mongoProperties.port, Network.localhostIsIPv6()))
+            .net(Net(port, Network.localhostIsIPv6()))
             .build()
         this.mongoExecutable = starter.prepare(builder)
         this.mongoProcess = this.mongoExecutable.start()
@@ -45,7 +47,7 @@ class DefaultEmbeddedMongo(
     @Bean
     @Throws(IOException::class)
     fun mongoTemplate(): MongoTemplate {
-        val mongoClient = MongoClients.create("mongodb://${mongoProperties.host}")
+        val mongoClient = MongoClients.create(ConnectionString("mongodb://${mongoProperties.host}:$port"))
         return MongoTemplate(mongoClient, mongoProperties.database)
     }
 

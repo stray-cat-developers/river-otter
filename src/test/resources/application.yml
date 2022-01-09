@@ -37,7 +37,6 @@ spring:
     mongodb:
       database: riverOtter
       host: localhost
-      port: 27017
 
 app:
   available-countries: KR,US
