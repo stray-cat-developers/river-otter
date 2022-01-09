@@ -3,6 +3,8 @@ package io.mustelidae.riverotter.domain.topic
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendar
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendarFinder
+import io.mustelidae.riverotter.domain.topic.synchronization.DayTopicHolidaySynchronization
+import io.mustelidae.riverotter.domain.topic.synchronization.YearTopicHolidaySynchronization
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -15,27 +17,21 @@ class TopicHolidayCalendarFinder(
 ) {
 
     fun findBy(id: ObjectId, locale: Locale, year: Int): HolidayCalendar {
-        val topicCalendar = topicFinder.findOrThrow(id)
-            .getCalendar(locale, year)
+        val topic = topicFinder.findOrThrow(id)
+        val topicCalendar = topic.getCalendar(locale, year)
         val countryHolidayCalendar = holidayCalendarFinder.findOrThrow(locale, year)
 
-        val holidayMap = countryHolidayCalendar.holidays.associateBy { it.date }
-            .toMutableMap()
+        val holidaySynchronization = YearTopicHolidaySynchronization(countryHolidayCalendar.holidays)
 
-        if(topicCalendar != null) {
-            // 토픽의 휴일도 합친다.
-            holidayMap.putAll(
-                topicCalendar.holidays.associateBy { it.date }
-            )
-
-            // 토픽이 일하는 날짜는 모두 휴일에서 제거한다.
-            topicCalendar.workdays.map { it.date }
-                .forEach {
-                    holidayMap.remove(it)
-                }
+        topic.workSchedule?.let {
+            holidaySynchronization.syncWorkSchedule(it)
         }
 
-        return HolidayCalendar(locale, year, holidayMap.values.toList())
+        topicCalendar?.let {
+            holidaySynchronization.syncTopicCalendar(it)
+        }
+
+        return HolidayCalendar(locale, year, holidaySynchronization.getHolidays())
     }
 
     fun findBy(id: ObjectId, locale: Locale, year: Int, month: Int): List<Holiday> {
@@ -45,21 +41,20 @@ class TopicHolidayCalendarFinder(
 
     fun findBy(id: ObjectId, locale: Locale, year: Int, month: Int, day: Int): Holiday? {
         val date = LocalDate.of(year, month, day)
-        val topicCalendar = topicFinder.findOrThrow(id)
-            .getCalendar(locale, year)
+        val topic = topicFinder.findOrThrow(id)
+        val topicCalendar = topic.getCalendar(locale, year)
+        val countryHoliday = holidayCalendarFinder.findBy(locale, year, month, day)
 
-        var holiday = holidayCalendarFinder.findBy(locale, year, month, day)
+        val holidaySynchronization = DayTopicHolidaySynchronization(date, countryHoliday)
 
-        if (topicCalendar != null) {
-            topicCalendar.holidays.find { it.date == date }?.let {
-                holiday = it
-            }
-
-            topicCalendar.workdays.find { it.date == date }?.let {
-                holiday = null
-            }
+        topic.workSchedule?.let {
+            holidaySynchronization.syncWorkSchedule(it)
         }
 
-        return holiday
+        topicCalendar?.let {
+            holidaySynchronization.syncTopicCalendar(it)
+        }
+
+        return holidaySynchronization.getHoliday()
     }
 }
