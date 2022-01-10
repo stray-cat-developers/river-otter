@@ -1,3 +1,4 @@
+distro: bionic
 language: java
 jdk:
   - openjdk11
