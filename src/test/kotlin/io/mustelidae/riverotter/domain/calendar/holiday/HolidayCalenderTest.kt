@@ -13,8 +13,8 @@ internal fun HolidayCalendar.Companion.aFixture(year: Int): HolidayCalendar {
             Holiday(
                 LocalDate.of(year, 1, 5),
                 "",
-                Holiday.Type.WEEKEND_HOLIDAY
-            )
-        )
+                Holiday.Type.WEEKEND_HOLIDAY,
+            ),
+        ),
     )
 }

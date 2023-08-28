@@ -5,7 +5,7 @@ import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday.Type
 import io.mustelidae.riverotter.domain.calendar.holiday.HolidayCalendar
-import io.swagger.annotations.ApiModel
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -14,38 +14,39 @@ import java.util.Locale
 class HolidayCalendarResources {
 
     class Request {
-        @ApiModel("HolidayCalendar.Request.Crawling")
+        @Schema(name = "HolidayCalendar.Request.Crawling")
         data class Crawling(
             val year: Int? = null,
-            val country: String? = null
+            val country: String? = null,
         ) {
             fun getYear(): Int = this.year ?: LocalDate.now().plusYears(1).year
 
             fun getLocale(): Locale? {
-                return if (country.isNullOrEmpty().not())
+                return if (country.isNullOrEmpty().not()) {
                     AvailableCountry.getLocale(country!!)
-                else
+                } else {
                     null
+                }
             }
         }
     }
 
     class Reply {
 
-        @ApiModel("HolidayCalendar.Reply.YearOfCountry")
+        @Schema(name = "HolidayCalendar.Reply.YearOfCountry")
         data class YearOfCountry(
             val country: String,
             val id: String,
             val year: Int,
         )
 
-        @ApiModel("HolidayCalendar.Reply.Calendar")
+        @Schema(name = "HolidayCalendar.Reply.Calendar")
         data class Calendar(
             val id: String,
             val country: String,
             val year: Int,
             val holidays: List<HolidayOfCountry>,
-            val createdAt: LocalDateTime
+            val createdAt: LocalDateTime,
         ) {
             companion object {
                 fun from(holidayCalendar: HolidayCalendar): Calendar {
@@ -55,17 +56,17 @@ class HolidayCalendarResources {
                         holidayCalendar.locale.country,
                         holidayCalendar.year,
                         holidays,
-                        holidayCalendar.createdAt
+                        holidayCalendar.createdAt,
                     )
                 }
             }
         }
 
-        @ApiModel("HolidayCalendar.Reply.DayOfHoliday")
+        @Schema(name = "HolidayCalendar.Reply.DayOfHoliday")
         data class DayOfHoliday(
             @get:JsonProperty("isHoliday")
             val isHoliday: Boolean,
-            val holiday: HolidayOfCountry? = null
+            val holiday: HolidayOfCountry? = null,
         ) {
             companion object {
                 fun fromNotHoliday(): DayOfHoliday = DayOfHoliday(false, null)
@@ -73,13 +74,13 @@ class HolidayCalendarResources {
                 fun fromHasHoliday(holiday: Holiday, locale: Locale): DayOfHoliday {
                     return DayOfHoliday(
                         true,
-                        HolidayOfCountry.from(holiday, locale)
+                        HolidayOfCountry.from(holiday, locale),
                     )
                 }
             }
         }
 
-        @ApiModel("HolidayCalendar.Reply.Day")
+        @Schema(name = "HolidayCalendar.Reply.Day")
         data class HolidayOfCountry(
             val date: LocalDate,
             val month: Int,
@@ -87,7 +88,7 @@ class HolidayCalendarResources {
             val name: String,
             val type: Type,
             val dayOfWeek: String,
-            val description: String? = null
+            val description: String? = null,
         ) {
             companion object {
                 fun from(holiday: Holiday, locale: Locale): HolidayOfCountry {
@@ -99,7 +100,7 @@ class HolidayCalendarResources {
                             name,
                             type,
                             date.dayOfWeek.getDisplayName(TextStyle.FULL, locale),
-                            description
+                            description,
                         )
                     }
                 }

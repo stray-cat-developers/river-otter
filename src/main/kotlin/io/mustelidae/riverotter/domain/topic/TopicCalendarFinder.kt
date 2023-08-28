@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class TopicCalendarFinder(
-    private val topicCalendarRepository: TopicCalendarRepository
+    private val topicCalendarRepository: TopicCalendarRepository,
 ) {
 
     fun findOrThrow(id: ObjectId): TopicCalendar {

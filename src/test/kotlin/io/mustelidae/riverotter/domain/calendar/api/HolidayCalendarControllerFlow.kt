@@ -9,13 +9,13 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 
 internal class HolidayCalendarControllerFlow(
-    private val mockMvc: MockMvc
+    private val mockMvc: MockMvc,
 ) {
 
     fun crawling(): List<HolidayCalendarResources.Reply.YearOfCountry> {
         val request = HolidayCalendarResources.Request.Crawling(
             2020,
-            "KR"
+            "KR",
         )
         val uri = linkTo<HolidayCalendarController> { crawling(request) }.toUri()
 

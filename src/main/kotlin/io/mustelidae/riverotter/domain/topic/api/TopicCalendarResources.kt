@@ -3,7 +3,7 @@ package io.mustelidae.riverotter.domain.topic.api
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
 import io.mustelidae.riverotter.domain.topic.TopicCalendar
 import io.mustelidae.riverotter.domain.topic.Workday
-import io.swagger.annotations.ApiModel
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.TextStyle
@@ -15,18 +15,18 @@ class TopicCalendarResources {
         data class TopicHoliday(
             val date: LocalDate,
             val name: String,
-            val description: String? = null
+            val description: String? = null,
         )
 
         data class TopicWorkday(
             val date: LocalDate,
             val name: String,
             val type: Workday.Type,
-            val description: String? = null
+            val description: String? = null,
         )
     }
 
-    @ApiModel("TopicCalendar.Reply")
+    @Schema(name = "TopicCalendar.Reply")
     data class Reply(
         val id: String,
         val locale: Locale,
@@ -34,7 +34,7 @@ class TopicCalendarResources {
         val createdAt: LocalDateTime,
         val modifiedAt: LocalDateTime,
         val holidays: List<HolidayCalendarResources.Reply.HolidayOfCountry>,
-        val workdays: List<WorkdayOfTopic>
+        val workdays: List<WorkdayOfTopic>,
     ) {
         companion object {
             fun from(topicCalendar: TopicCalendar): Reply {
@@ -49,13 +49,13 @@ class TopicCalendarResources {
                     topicCalendar.createdAt,
                     topicCalendar.modifiedAt,
                     holidays,
-                    workdays
+                    workdays,
                 )
             }
         }
     }
 
-    @ApiModel("TopicCalendar.WorkdayOfTopic")
+    @Schema(name = "TopicCalendar.WorkdayOfTopic")
     data class WorkdayOfTopic(
         val date: LocalDate,
         val month: Int,
@@ -63,7 +63,7 @@ class TopicCalendarResources {
         val name: String,
         val type: Workday.Type,
         val dayOfWeek: String,
-        val description: String? = null
+        val description: String? = null,
     ) {
         companion object {
             fun from(workday: Workday, locale: Locale): WorkdayOfTopic {
@@ -75,7 +75,7 @@ class TopicCalendarResources {
                         name,
                         type,
                         date.dayOfWeek.getDisplayName(TextStyle.FULL, locale),
-                        description
+                        description,
                     )
                 }
             }

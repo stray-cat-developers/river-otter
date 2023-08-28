@@ -16,7 +16,7 @@ class HolidayCrawler(
     private val env: AppEnvironment,
     private val governmentOpenClient: GovernmentOpenClient,
     private val worldHolidayClient: WorldHolidayClient,
-    private val holidayCalendarRepository: HolidayCalendarRepository
+    private val holidayCalendarRepository: HolidayCalendarRepository,
 ) {
     fun crawling(year: Int, country: Locale): ObjectId {
         val countryHoliday = when (country) {

@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.topic.api
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.repository.TopicRepository
 import org.bson.types.ObjectId
@@ -12,6 +12,7 @@ internal class TopicControllerTest : IntegrationSupport() {
 
     @Autowired
     private lateinit var topicController: TopicController
+
     @Autowired
     private lateinit var topicRepository: TopicRepository
 
@@ -19,7 +20,7 @@ internal class TopicControllerTest : IntegrationSupport() {
     fun add() {
         // Given
         val request = TopicResources.Request(
-            "새로운 토픽"
+            "새로운 토픽",
         )
 
         // When
@@ -35,7 +36,7 @@ internal class TopicControllerTest : IntegrationSupport() {
     fun remove() {
         // Given
         val request = TopicResources.Request(
-            "삭제 토픽"
+            "삭제 토픽",
         )
         val removeId = topicController.add(request).content!!
 

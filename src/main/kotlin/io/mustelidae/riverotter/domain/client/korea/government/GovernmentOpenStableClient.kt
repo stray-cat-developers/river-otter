@@ -8,11 +8,11 @@ import io.mustelidae.riverotter.utils.Jackson
 import org.slf4j.LoggerFactory
 
 class GovernmentOpenStableClient(
-    private val env: AppEnvironment.Client.Government
+    private val env: AppEnvironment.Client.Government,
 ) : GovernmentOpenClient, ClientSupport(
     Jackson.getMapper(),
     true,
-    LoggerFactory.getLogger(GovernmentOpenStableClient::class.java)
+    LoggerFactory.getLogger(GovernmentOpenStableClient::class.java),
 ) {
 
     override fun findAllHoliday(year: Int): GovernmentOpenResources.Reply.Holiday {
@@ -20,7 +20,7 @@ class GovernmentOpenStableClient(
         val params = listOf(
             Pair("_type", "json"),
             Pair("solYear", year),
-            Pair("numOfRows", 50)
+            Pair("numOfRows", 50),
         )
 
         log.info(params.toJson())

@@ -9,13 +9,13 @@ class Workday(
     val date: LocalDate,
     val name: String,
     val type: Type,
-    val description: String? = null
+    val description: String? = null,
 ) {
     var time: Long = date.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
         private set
 
     enum class Type {
         REPLACED_WORK,
-        FORCE_WORK
+        FORCE_WORK,
     }
 }

@@ -1,7 +1,7 @@
 package io.mustelidae.riverotter.domain.topic.api
 
-import io.kotlintest.matchers.asClue
-import io.kotlintest.shouldBe
+import io.kotest.assertions.asClue
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarController
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
@@ -18,10 +18,13 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
 
     @Autowired
     private lateinit var topicHolidayCalendarController: TopicHolidayCalendarController
+
     @Autowired
     private lateinit var holidayCalendarController: HolidayCalendarController
+
     @Autowired
     private lateinit var topicController: TopicController
+
     @Autowired
     private lateinit var topicCalendarController: TopicCalendarController
 
@@ -49,8 +52,8 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
                 TopicCalendarResources.Request.TopicHoliday(
                     topicHoliday,
                     "Topic Holiday",
-                    "Party time!"
-                )
+                    "Party time!",
+                ),
             )
 
             topicCalendarController.addWorkday(
@@ -60,8 +63,8 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
                     topicWorkday,
                     "Topic workday",
                     Workday.Type.FORCE_WORK,
-                    "Work time :("
-                )
+                    "Work time :(",
+                ),
             )
         }
 
@@ -96,8 +99,8 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
                     topicWorkday,
                     "Topic workday",
                     Workday.Type.FORCE_WORK,
-                    "Work time :("
-                )
+                    "Work time :(",
+                ),
             )
         }
 
@@ -124,8 +127,8 @@ internal class TopicHolidayCalendarControllerTest : IntegrationSupport() {
                 TopicCalendarResources.Request.TopicHoliday(
                     topicHoliday,
                     "Topic Holiday",
-                    "Party time!"
-                )
+                    "Party time!",
+                ),
             )
         }
         // When

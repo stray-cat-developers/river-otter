@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.client.korea.government
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.AppEnvironment
 import org.junit.jupiter.api.Test
 

@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory
 import java.util.Locale
 
 class WorldHolidayStableClient(
-    private val env: AppEnvironment.Client.Abstract
+    private val env: AppEnvironment.Client.Abstract,
 ) : ClientSupport(
     Jackson.getMapper(),
     false,
-    LoggerFactory.getLogger(WorldHolidayStableClient::class.java)
+    LoggerFactory.getLogger(WorldHolidayStableClient::class.java),
 ),
     WorldHolidayClient {
 
@@ -24,7 +24,7 @@ class WorldHolidayStableClient(
             Pair("country", country.country),
             Pair("year", year),
             Pair("day", day),
-            Pair("month", month)
+            Pair("month", month),
         )
         return Fuel.get(url, params)
             .timeout(env.timeout)

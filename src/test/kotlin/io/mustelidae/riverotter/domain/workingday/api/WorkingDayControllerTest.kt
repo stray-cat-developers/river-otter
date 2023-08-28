@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.workingday.api
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarController
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarResources
@@ -20,10 +20,13 @@ internal class WorkingDayControllerTest : IntegrationSupport() {
 
     @Autowired
     private lateinit var workingDayController: WorkingDayController
+
     @Autowired
     private lateinit var holidayCalendarController: HolidayCalendarController
+
     @Autowired
     private lateinit var topicCalendarController: TopicCalendarController
+
     @Autowired
     private lateinit var topicRepository: TopicRepository
 
@@ -62,7 +65,7 @@ internal class WorkingDayControllerTest : IntegrationSupport() {
             // Given
             val request = TopicCalendarResources.Request.TopicHoliday(
                 LocalDate.of(2021, 1, 4),
-                "fennec is free!"
+                "fennec is free!",
             )
 
             // When

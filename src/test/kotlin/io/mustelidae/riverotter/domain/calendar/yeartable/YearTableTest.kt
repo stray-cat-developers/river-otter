@@ -1,7 +1,7 @@
 package io.mustelidae.riverotter.domain.calendar.yeartable
 
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.bson.types.ObjectId
 import org.junit.jupiter.api.Test
 import java.util.Locale

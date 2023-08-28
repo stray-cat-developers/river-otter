@@ -11,13 +11,14 @@ import java.time.DayOfWeek
 @Service
 class TopicWorkScheduleInteraction(
     private val topicFinder: TopicFinder,
-    private val topicRepository: TopicRepository
+    private val topicRepository: TopicRepository,
 ) {
 
     fun add(topicId: ObjectId, request: TopicResources.WorkSchedule) {
         val topic = topicFinder.findOrThrow(topicId)
-        if (topic.workSchedule != null)
+        if (topic.workSchedule != null) {
             throw DuplicateDataException("The topic already has a schedule.")
+        }
 
         topic.workSchedule = WorkSchedule.from(request)
         topicRepository.save(topic)
@@ -26,11 +27,12 @@ class TopicWorkScheduleInteraction(
     fun modify(
         topicId: ObjectId,
         dayOfWeek: DayOfWeek,
-        request: TopicResources.WorkSchedule.Schedule
+        request: TopicResources.WorkSchedule.Schedule,
     ) {
         val topic = topicFinder.findOrThrow(topicId)
-        if (topic.workSchedule == null)
+        if (topic.workSchedule == null) {
             throw DataNotFoundException("Please register your weekly schedule first.")
+        }
 
         val workTime = WorkSchedule.WorkTime.from(request)
 

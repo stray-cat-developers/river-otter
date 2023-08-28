@@ -10,7 +10,7 @@ import java.util.Locale
 class HolidayCalendarInteraction(
     private val environment: AppEnvironment,
     private val holidayCrawler: HolidayCrawler,
-    private val yearTableInteraction: YearTableInteraction
+    private val yearTableInteraction: YearTableInteraction,
 ) {
 
     fun crawling(year: Int): List<Pair<Locale, ObjectId>> {

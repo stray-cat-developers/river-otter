@@ -6,7 +6,6 @@ import io.mustelidae.riverotter.utils.Jackson
 class GovernmentOpenDummyClient : GovernmentOpenClient {
 
     override fun findAllHoliday(year: Int): GovernmentOpenResources.Reply.Holiday {
-
         val json = when (year) {
             2020 -> raw2020()
             else -> raw2021()

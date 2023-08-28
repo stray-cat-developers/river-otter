@@ -1,8 +1,8 @@
 package io.mustelidae.riverotter.domain.topic.api
 
-import io.kotlintest.matchers.asClue
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
+import io.kotest.assertions.asClue
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.mustelidae.riverotter.config.FlowTestSupport
 import org.junit.jupiter.api.Test
 import java.time.DayOfWeek
@@ -54,7 +54,7 @@ internal class TopicScheduleControllerFlowTest : FlowTestSupport() {
         topicScheduleControllerFlow.addWorkSchedule(topicId, request)
         val mondaySchedule = TopicResources.WorkSchedule.Schedule(
             isOn = false,
-            is24Hours = false
+            is24Hours = false,
         )
 
         // When

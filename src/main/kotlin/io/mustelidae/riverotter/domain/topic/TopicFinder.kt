@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class TopicFinder(
-    private val topicRepository: TopicRepository
+    private val topicRepository: TopicRepository,
 ) {
     fun findOrThrow(id: ObjectId): Topic {
         return topicRepository.findByIdOrNull(id) ?: throw DataNotFoundException("topic id($id) not found")

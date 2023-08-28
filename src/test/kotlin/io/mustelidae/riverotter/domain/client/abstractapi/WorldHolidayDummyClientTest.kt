@@ -1,12 +1,13 @@
 package io.mustelidae.riverotter.domain.client.abstractapi
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.util.Locale
 
 internal class WorldHolidayDummyClientTest {
 
     private val worldHolidayClient = WorldHolidayDummyClient()
+
     @Test
     fun findHoliday() {
         // Given

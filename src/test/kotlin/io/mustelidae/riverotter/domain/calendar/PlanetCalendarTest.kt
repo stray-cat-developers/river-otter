@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.calendar
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 

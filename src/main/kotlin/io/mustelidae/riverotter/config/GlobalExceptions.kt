@@ -19,9 +19,9 @@ class GovernmentOpenClientException(fuelError: FuelError) : CommunicationExcepti
         ErrorCode.CT01,
         "Korea Public data API call failure",
         causeBy = mapOf(
-            "response" to String(fuelError.response.data)
-        )
-    )
+            "response" to String(fuelError.response.data),
+        ),
+    ),
 )
 
 class WorldHolidayClientException(fuelError: FuelError) : CommunicationException(
@@ -29,9 +29,9 @@ class WorldHolidayClientException(fuelError: FuelError) : CommunicationException
         ErrorCode.CT01,
         "Abstractapi API call failure",
         causeBy = mapOf(
-            "response" to String(fuelError.response.data)
-        )
-    )
+            "response" to String(fuelError.response.data),
+        ),
+    ),
 )
 
 open class SystemException(val error: Error) : RuntimeException(error.getMessage())

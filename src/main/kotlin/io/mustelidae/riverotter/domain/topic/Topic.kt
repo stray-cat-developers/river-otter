@@ -11,7 +11,7 @@ import java.util.Locale
 class Topic(
     @Id
     var id: ObjectId,
-    val name: String
+    val name: String,
 ) {
     var createdAt = LocalDateTime.now()!!
         protected set
@@ -23,15 +23,17 @@ class Topic(
     var workSchedule: WorkSchedule? = null
 
     fun addBy(topicCalendar: TopicCalendar) {
-        if (hasCalendar(topicCalendar.locale, topicCalendar.year))
+        if (hasCalendar(topicCalendar.locale, topicCalendar.year)) {
             throw IllegalArgumentException("already exists topic calender")
+        }
 
         calendars.add(topicCalendar)
     }
 
     fun hasCalendar(locale: Locale, year: Int): Boolean {
-        if (this.calendars.isEmpty())
+        if (this.calendars.isEmpty()) {
             return false
+        }
 
         val calendar = this.calendars.find { it.locale == locale && it.year == year }
         return calendar != null
