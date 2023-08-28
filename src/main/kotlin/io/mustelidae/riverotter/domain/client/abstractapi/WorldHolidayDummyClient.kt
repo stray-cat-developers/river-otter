@@ -11,18 +11,18 @@ class WorldHolidayDummyClient :
     ClientSupport(
         Jackson.getMapper(),
         false,
-        LoggerFactory.getLogger(WorldHolidayDummyClient::class.java)
+        LoggerFactory.getLogger(WorldHolidayDummyClient::class.java),
     ),
     WorldHolidayClient {
 
     override fun findHoliday(country: Locale, year: Int, month: Int, day: Int): WorldHolidayResources.Reply.Holidays {
-
         if (country == Locale.US) {
             val json = usaHoliday(LocalDate.of(year, month, day))
-            return if (json.isNullOrBlank())
+            return if (json.isNullOrBlank()) {
                 WorldHolidayResources.Reply.Holidays()
-            else
+            } else {
                 json.fromJson()
+            }
         }
 
         throw NotSupportCountryException(country)

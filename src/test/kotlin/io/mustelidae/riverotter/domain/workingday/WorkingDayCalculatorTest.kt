@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.workingday
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -11,7 +11,7 @@ internal class WorkingDayCalculatorTest {
         Holiday(LocalDate.of(2020, 1, 4), "", Holiday.Type.PUBLIC_HOLIDAY),
         Holiday(LocalDate.of(2020, 1, 1), "", Holiday.Type.PUBLIC_HOLIDAY),
         Holiday(LocalDate.of(2020, 1, 7), "", Holiday.Type.PUBLIC_HOLIDAY),
-        Holiday(LocalDate.of(2020, 1, 5), "", Holiday.Type.PUBLIC_HOLIDAY)
+        Holiday(LocalDate.of(2020, 1, 5), "", Holiday.Type.PUBLIC_HOLIDAY),
 
     )
 

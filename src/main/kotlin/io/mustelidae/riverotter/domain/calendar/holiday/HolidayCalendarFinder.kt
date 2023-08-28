@@ -9,7 +9,7 @@ import java.util.Locale
 
 @Service
 class HolidayCalendarFinder(
-    private val holidayCalendarRepository: HolidayCalendarRepository
+    private val holidayCalendarRepository: HolidayCalendarRepository,
 ) {
 
     fun findBy(locale: Locale, year: Int, month: Int): List<Holiday> {
@@ -21,10 +21,11 @@ class HolidayCalendarFinder(
         val holidayCalendar = findOrThrow(locale, year)
 
         val index = holidayCalendar.holidays.searchIndex(LocalDate.of(year, month, day))
-        return if (index >= 0)
+        return if (index >= 0) {
             holidayCalendar.holidays[index]
-        else
+        } else {
             null
+        }
     }
 
     fun findOrThrow(locale: Locale, year: Int): HolidayCalendar {

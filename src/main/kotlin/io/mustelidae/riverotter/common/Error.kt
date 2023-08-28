@@ -3,7 +3,7 @@ package io.mustelidae.riverotter.common
 class Error(
     private val code: ErrorCode,
     private val message: String? = null,
-    private val causeBy: Map<String, Any?>? = null
+    private val causeBy: Map<String, Any?>? = null,
 ) {
     fun getCode(): String = code.name
     fun getMessage(): String? {

@@ -13,7 +13,7 @@ import java.util.Locale
 @Service
 class TopicHolidayCalendarFinder(
     private val topicFinder: TopicFinder,
-    private val holidayCalendarFinder: HolidayCalendarFinder
+    private val holidayCalendarFinder: HolidayCalendarFinder,
 ) {
 
     fun findBy(id: ObjectId, locale: Locale, year: Int): HolidayCalendar {

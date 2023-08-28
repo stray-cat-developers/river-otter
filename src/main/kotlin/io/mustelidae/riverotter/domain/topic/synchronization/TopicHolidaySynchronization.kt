@@ -13,31 +13,38 @@ interface TopicHolidaySynchronization {
     fun makeHolidayOwingToWorkSchedule(
         date: LocalDate,
         workSchedule: WorkSchedule,
-        name: String = "Closed"
+        name: String = "Closed",
     ): Holiday? {
         @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
         when (date.dayOfWeek) {
             DayOfWeek.MONDAY ->
-                if (workSchedule.mon.isOn.not())
+                if (workSchedule.mon.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.TUESDAY ->
-                if (workSchedule.tue.isOn.not())
+                if (workSchedule.tue.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.WEDNESDAY ->
-                if (workSchedule.wed.isOn.not())
+                if (workSchedule.wed.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.THURSDAY ->
-                if (workSchedule.thu.isOn.not())
+                if (workSchedule.thu.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.FRIDAY ->
-                if (workSchedule.fri.isOn.not())
+                if (workSchedule.fri.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.SATURDAY ->
-                if (workSchedule.sat.isOn.not())
+                if (workSchedule.sat.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
             DayOfWeek.SUNDAY ->
-                if (workSchedule.sun.isOn.not())
+                if (workSchedule.sun.isOn.not()) {
                     return Holiday(date, name, Holiday.Type.SCHEDULE_HOLIDAY)
+                }
         }
         return null
     }

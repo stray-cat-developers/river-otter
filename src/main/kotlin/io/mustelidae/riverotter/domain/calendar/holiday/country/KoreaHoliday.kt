@@ -23,8 +23,9 @@ class KoreaHoliday(
 
     override fun create(year: Int): ObjectId {
         val holidayCalendar = holidayCalendarRepository.findByYearAndLocale(year, localeOfCountry)
-        if (holidayCalendar != null)
+        if (holidayCalendar != null) {
             return holidayCalendar.id
+        }
 
         val weekendHolidays = super.getWeekend(year, saturdayIsHoliday)
 
@@ -35,7 +36,7 @@ class KoreaHoliday(
                 Holiday(
                     date,
                     it.dateName,
-                    Holiday.Type.PUBLIC_HOLIDAY
+                    Holiday.Type.PUBLIC_HOLIDAY,
                 )
             }
 

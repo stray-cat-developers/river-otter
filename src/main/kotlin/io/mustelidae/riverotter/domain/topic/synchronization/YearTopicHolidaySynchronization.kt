@@ -5,10 +5,9 @@ import io.mustelidae.riverotter.domain.topic.TopicCalendar
 import io.mustelidae.riverotter.domain.topic.WorkSchedule
 import java.time.DayOfWeek
 import java.time.LocalDate
-import kotlin.streams.toList
 
 class YearTopicHolidaySynchronization(
-    countryHoliday: List<Holiday>
+    countryHoliday: List<Holiday>,
 ) : TopicHolidaySynchronization {
     private val topicHolidays: MutableMap<LocalDate, Holiday> = countryHoliday.associateBy { it.date }.toMutableMap()
     private val year: Int = countryHoliday.first().date.year
@@ -20,22 +19,25 @@ class YearTopicHolidaySynchronization(
         for (date in dates) {
             // Add holiday
             val holiday = makeHolidayOwingToWorkSchedule(date, workSchedule)
-            if (holiday != null)
+            if (holiday != null) {
                 topicHolidays[date] = holiday
+            }
 
             // Remove working days on weekends.
-            if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn && topicHolidays.contains(date))
+            if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn && topicHolidays.contains(date)) {
                 topicHolidays.remove(date)
+            }
 
-            if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn && topicHolidays.contains(date))
+            if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn && topicHolidays.contains(date)) {
                 topicHolidays.remove(date)
+            }
         }
     }
 
     override fun syncTopicCalendar(topicCalendar: TopicCalendar) {
         // Add holiday
         topicHolidays.putAll(
-            topicCalendar.holidays.associateBy { it.date }
+            topicCalendar.holidays.associateBy { it.date },
         )
 
         // All days on which a topic works are removed from holidays.

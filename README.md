@@ -4,6 +4,10 @@ river-otter is an application that can manage holidays and business days for eac
 [![Build Status](https://travis-ci.org/fennec-fox/river-otter.svg?branch=master)](https://travis-ci.org/fennec-fox/river-otter)
 
 # New Features!
+##### 1.1.0
+* Upgrade library
+* Using 
+#### 1.0.0
 * Supports Korean and US holidays search.
 * Create a customized holiday calendar for each topic.
 * Calculate the business days.

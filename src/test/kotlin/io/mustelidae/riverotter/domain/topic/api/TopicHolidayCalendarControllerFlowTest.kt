@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.topic.api
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.FlowTestSupport
 import io.mustelidae.riverotter.domain.calendar.api.HolidayCalendarControllerFlow
 import org.junit.jupiter.api.Test
@@ -22,40 +22,40 @@ class TopicHolidayCalendarControllerFlowTest : FlowTestSupport() {
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = false,
-                is24Hours = false
+                is24Hours = false,
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
-                is24Hours = true
-            )
+                is24Hours = true,
+            ),
         )
         topicScheduleControllerFlow.addWorkSchedule(topicId, workSchedule)
 

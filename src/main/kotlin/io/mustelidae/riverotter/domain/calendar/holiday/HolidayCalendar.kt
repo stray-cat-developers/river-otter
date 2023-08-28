@@ -10,7 +10,7 @@ import java.util.Locale
 class HolidayCalendar(
     val locale: Locale,
     val year: Int,
-    val holidays: List<Holiday>
+    val holidays: List<Holiday>,
 ) {
     @Id
     var id: ObjectId = ObjectId()

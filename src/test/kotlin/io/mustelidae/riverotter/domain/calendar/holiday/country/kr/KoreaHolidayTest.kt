@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.calendar.holiday.country.kr
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot

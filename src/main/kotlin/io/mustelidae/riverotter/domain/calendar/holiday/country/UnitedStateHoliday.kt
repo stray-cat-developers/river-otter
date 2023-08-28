@@ -13,14 +13,15 @@ import java.util.Locale
 
 class UnitedStateHoliday(
     private val worldHolidayClient: WorldHolidayClient,
-    private val holidayCalendarRepository: HolidayCalendarRepository
+    private val holidayCalendarRepository: HolidayCalendarRepository,
 ) : CountryHoliday {
     override val localeOfCountry: Locale = Locale.US
 
     override fun create(year: Int): ObjectId {
         val holidayCalendar = holidayCalendarRepository.findByYearAndLocale(year, localeOfCountry)
-        if (holidayCalendar != null)
+        if (holidayCalendar != null) {
             return holidayCalendar.id
+        }
 
         val weekendHolidays = super.getWeekend(year, false)
 
@@ -62,8 +63,9 @@ class UnitedStateHoliday(
         val holidays = mutableListOf<Holiday>()
         for (date in days) {
             val holiday = getHoliday(locale, date)
-            if (holiday != null)
+            if (holiday != null) {
                 holidays.add(holiday)
+            }
         }
 
         return holidays
@@ -79,7 +81,7 @@ class UnitedStateHoliday(
                 localDate,
                 name,
                 Holiday.Type.PUBLIC_HOLIDAY,
-                reply.description
+                reply.description,
             )
         } else {
             null

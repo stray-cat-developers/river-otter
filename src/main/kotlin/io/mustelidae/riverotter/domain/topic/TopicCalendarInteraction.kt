@@ -10,7 +10,7 @@ import java.util.Locale
 @Service
 class TopicCalendarInteraction(
     private val topicCalendarFinder: TopicCalendarFinder,
-    private val topicCalendarRepository: TopicCalendarRepository
+    private val topicCalendarRepository: TopicCalendarRepository,
 ) {
 
     fun add(locale: Locale, year: Int): ObjectId {

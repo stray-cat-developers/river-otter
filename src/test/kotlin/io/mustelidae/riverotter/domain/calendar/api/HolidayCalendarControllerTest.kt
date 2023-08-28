@@ -1,8 +1,8 @@
 package io.mustelidae.riverotter.domain.calendar.api
 
-import io.kotlintest.matchers.numerics.shouldBeGreaterThan
-import io.kotlintest.shouldBe
-import io.kotlintest.shouldNotBe
+import io.kotest.matchers.comparables.shouldBeGreaterThan
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.calendar.holiday.repository.HolidayCalendarRepository
@@ -17,17 +17,19 @@ internal class HolidayCalendarControllerTest : IntegrationSupport() {
 
     @Autowired
     private lateinit var holidayCalendarController: HolidayCalendarController
+
     @Autowired
     private lateinit var holidayCalenderRepository: HolidayCalendarRepository
 
     private val year = 2020
+
     @Test
     @Order(1)
     fun crawling() {
         // Given
 
         val request = HolidayCalendarResources.Request.Crawling(
-            year
+            year,
         )
 
         // When

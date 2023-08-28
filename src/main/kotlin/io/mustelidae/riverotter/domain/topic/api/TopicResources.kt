@@ -1,20 +1,20 @@
 package io.mustelidae.riverotter.domain.topic.api
 
 import io.mustelidae.riverotter.domain.topic.Topic
-import io.swagger.annotations.ApiModel
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@ApiModel("Topic")
+@Schema(name = "Topic")
 class TopicResources {
 
-    @ApiModel("Topic.Request")
+    @Schema(name = "Topic.Request")
     data class Request(
         val name: String,
-        val code: String? = null
+        val code: String? = null,
     )
 
-    @ApiModel("Topic.ReqReply.WorkSchedule")
+    @Schema(name = "Topic.ReqReply.WorkSchedule")
     data class WorkSchedule(
         val mon: Schedule,
         val tue: Schedule,
@@ -22,23 +22,23 @@ class TopicResources {
         val thu: Schedule,
         val fri: Schedule,
         val sat: Schedule,
-        val sun: Schedule
+        val sun: Schedule,
     ) {
-        @ApiModel("Topic.ReqReply.WorkSchedule.Schedule")
+        @Schema(name = "Topic.ReqReply.WorkSchedule.Schedule")
         data class Schedule(
             val isOn: Boolean,
             val is24Hours: Boolean,
             val startTime: LocalTime? = null,
-            val endTime: LocalTime? = null
+            val endTime: LocalTime? = null,
         )
     }
 
-    @ApiModel("Topic.Reply")
+    @Schema(name = "Topic.Reply")
     data class Reply(
         val id: String,
         val name: String,
         val createdAt: LocalDateTime,
-        val workSchedule: WorkSchedule? = null
+        val workSchedule: WorkSchedule? = null,
     ) {
         companion object {
             fun from(topic: Topic): Reply {
@@ -53,53 +53,53 @@ class TopicResources {
                                     it.mon.isOn,
                                     it.mon.is24Hours,
                                     it.mon.startTime,
-                                    it.mon.endTime
+                                    it.mon.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.tue.isOn,
                                     it.tue.is24Hours,
                                     it.tue.startTime,
-                                    it.tue.endTime
+                                    it.tue.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.wed.isOn,
                                     it.wed.is24Hours,
                                     it.wed.startTime,
-                                    it.wed.endTime
+                                    it.wed.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.thu.isOn,
                                     it.thu.is24Hours,
                                     it.thu.startTime,
-                                    it.thu.endTime
+                                    it.thu.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.fri.isOn,
                                     it.fri.is24Hours,
                                     it.fri.startTime,
-                                    it.fri.endTime
+                                    it.fri.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.sat.isOn,
                                     it.sat.is24Hours,
                                     it.sat.startTime,
-                                    it.sat.endTime
+                                    it.sat.endTime,
                                 ),
                                 WorkSchedule.Schedule(
                                     it.sun.isOn,
                                     it.sun.is24Hours,
                                     it.sun.startTime,
-                                    it.sun.endTime
-                                )
+                                    it.sun.endTime,
+                                ),
                             )
-                        }
+                        },
                     )
                 }
             }
         }
     }
 
-    @ApiModel("Topic.Reply.WithCalendar")
+    @Schema(name = "Topic.Reply.WithCalendar")
     data class ReplyWithCalendar(
         val id: String,
         val name: String,
@@ -112,7 +112,7 @@ class TopicResources {
             reply.name,
             reply.createdAt,
             calendars,
-            reply.workSchedule
+            reply.workSchedule,
         )
 
         companion object {
@@ -121,7 +121,7 @@ class TopicResources {
                 val calendars = topic.calendars.map { TopicCalendarResources.Reply.from(it) }
                 return ReplyWithCalendar(
                     reply,
-                    calendars
+                    calendars,
                 )
             }
         }

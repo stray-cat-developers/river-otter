@@ -10,26 +10,27 @@ class WorkSchedule(
     var thu: WorkTime,
     var fri: WorkTime,
     var sat: WorkTime,
-    var sun: WorkTime
+    var sun: WorkTime,
 ) {
 
     data class WorkTime(
         val isOn: Boolean,
         val is24Hours: Boolean,
         val startTime: LocalTime? = null,
-        val endTime: LocalTime? = null
+        val endTime: LocalTime? = null,
     ) {
         companion object {
             fun from(request: TopicResources.WorkSchedule.Schedule): WorkTime {
-                return if (request.isOn.not())
+                return if (request.isOn.not()) {
                     WorkTime(isOn = false, is24Hours = false)
-                else
+                } else {
                     WorkTime(
                         true,
                         request.is24Hours,
                         request.startTime,
-                        request.endTime
+                        request.endTime,
                     )
+                }
             }
         }
     }

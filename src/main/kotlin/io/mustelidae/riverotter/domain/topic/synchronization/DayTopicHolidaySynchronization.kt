@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 class DayTopicHolidaySynchronization(
     val date: LocalDate,
-    countryHoliday: Holiday?
+    countryHoliday: Holiday?,
 ) : TopicHolidaySynchronization {
 
     private var topicHoliday: Holiday? = countryHoliday
@@ -17,11 +17,13 @@ class DayTopicHolidaySynchronization(
         topicHoliday = makeHolidayOwingToWorkSchedule(date, workSchedule)
 
         // Remove working days on weekends.
-        if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn)
+        if (date.dayOfWeek == DayOfWeek.SATURDAY && workSchedule.sat.isOn) {
             topicHoliday = null
+        }
 
-        if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn)
+        if (date.dayOfWeek == DayOfWeek.SUNDAY && workSchedule.sun.isOn) {
             topicHoliday = null
+        }
     }
 
     override fun syncTopicCalendar(topicCalendar: TopicCalendar) {

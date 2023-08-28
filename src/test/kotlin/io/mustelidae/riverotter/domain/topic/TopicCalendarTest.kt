@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.topic
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -66,7 +66,7 @@ internal class TopicCalendarTest {
 }
 
 internal fun TopicCalendar.Companion.aFixture(
-    locale: Locale = Locale.KOREA
+    locale: Locale = Locale.KOREA,
 ): TopicCalendar {
     return TopicCalendar(
         locale,
@@ -76,16 +76,16 @@ internal fun TopicCalendar.Companion.aFixture(
             Holiday(
                 LocalDate.of(2020, 9, 29),
                 "vacation",
-                Holiday.Type.TOPIC_HOLIDAY
-            )
+                Holiday.Type.TOPIC_HOLIDAY,
+            ),
         )
 
         addBy(
             Workday(
                 LocalDate.of(2020, 10, 1),
                 "replaced vacation",
-                Workday.Type.REPLACED_WORK
-            )
+                Workday.Type.REPLACED_WORK,
+            ),
         )
     }
 }

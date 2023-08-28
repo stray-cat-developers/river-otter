@@ -10,12 +10,12 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 class TopicControllerFlow(
-    private val mockMvc: MockMvc
+    private val mockMvc: MockMvc,
 ) {
 
     fun addTopic(name: String): String {
         val request = TopicResources.Request(
-            name
+            name,
         )
         val uri = linkTo<TopicController> { add(request) }.toUri()
         return mockMvc.post(uri) {

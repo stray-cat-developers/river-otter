@@ -10,7 +10,7 @@ import java.time.DayOfWeek
 import java.time.LocalTime
 
 class TopicScheduleControllerFlow(
-    private val mockMvc: MockMvc
+    private val mockMvc: MockMvc,
 ) {
 
     fun getRequestWorkSchedule(): TopicResources.WorkSchedule {
@@ -19,45 +19,44 @@ class TopicScheduleControllerFlow(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
                 is24Hours = false,
                 startTime = LocalTime.of(9, 0, 0),
-                endTime = LocalTime.of(23, 0, 0)
+                endTime = LocalTime.of(23, 0, 0),
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = false,
-                is24Hours = false
+                is24Hours = false,
             ),
             TopicResources.WorkSchedule.Schedule(
                 isOn = true,
-                is24Hours = true
-            )
+                is24Hours = true,
+            ),
         )
     }
 
     fun addWorkSchedule(topicId: String, request: TopicResources.WorkSchedule) {
-
         val uri = linkTo<TopicScheduleController> { add(topicId, request) }.toUri()
 
         mockMvc.post(uri) {
@@ -69,7 +68,6 @@ class TopicScheduleControllerFlow(
     }
 
     fun modifySchedule(topicId: String, dayOfWeek: DayOfWeek, request: TopicResources.WorkSchedule.Schedule) {
-
         val uri = linkTo<TopicScheduleController> { modify(topicId, dayOfWeek.toString(), request) }.toUri()
 
         mockMvc.put(uri) {

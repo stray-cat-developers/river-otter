@@ -1,6 +1,6 @@
 package io.mustelidae.riverotter.domain.topic.api
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.common.AvailableCountry
 import io.mustelidae.riverotter.config.IntegrationSupport
 import io.mustelidae.riverotter.domain.topic.Topic
@@ -24,6 +24,7 @@ internal class TopicCalendarControllerTest : IntegrationSupport() {
 
     @Autowired
     private lateinit var topicCalendarController: TopicCalendarController
+
     @Autowired
     private lateinit var topicRepository: TopicRepository
 
@@ -45,7 +46,7 @@ internal class TopicCalendarControllerTest : IntegrationSupport() {
         // Given
         val request = TopicCalendarResources.Request.TopicHoliday(
             LocalDate.of(year, 1, 1),
-            "fennec is free!"
+            "fennec is free!",
         )
 
         // When
@@ -77,7 +78,7 @@ internal class TopicCalendarControllerTest : IntegrationSupport() {
         val request = TopicCalendarResources.Request.TopicWorkday(
             LocalDate.of(year, 1, 1),
             "fennec is free!",
-            Workday.Type.FORCE_WORK
+            Workday.Type.FORCE_WORK,
         )
         // When
         topicCalendarController.addWorkday(topicId, country, request)

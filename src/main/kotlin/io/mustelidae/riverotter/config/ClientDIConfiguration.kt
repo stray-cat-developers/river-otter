@@ -11,22 +11,24 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class ClientDIConfiguration(
-    val appEnv: AppEnvironment
+    val appEnv: AppEnvironment,
 ) {
 
     @Bean
     fun governmentOpenClient(): GovernmentOpenClient {
-        return if (appEnv.client.government.useDummy)
+        return if (appEnv.client.government.useDummy) {
             GovernmentOpenDummyClient()
-        else
+        } else {
             GovernmentOpenStableClient(appEnv.client.government)
+        }
     }
 
     @Bean
     fun worldHolidayClient(): WorldHolidayClient {
-        return if (appEnv.client.abstract.useDummy)
+        return if (appEnv.client.abstract.useDummy) {
             WorldHolidayDummyClient()
-        else
+        } else {
             WorldHolidayStableClient(appEnv.client.abstract)
+        }
     }
 }

@@ -7,7 +7,7 @@ import java.util.Locale
 
 @Service
 class YearTableFinder(
-    private val yearTableRepository: YearTableRepository
+    private val yearTableRepository: YearTableRepository,
 ) {
 
     fun findOrThrow(locale: Locale): YearTable {

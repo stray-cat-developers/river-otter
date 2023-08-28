@@ -9,7 +9,7 @@ import io.mustelidae.riverotter.utils.sort
 import java.time.LocalDate
 
 class WorkingDayCalculator(
-    private val holidays: MutableList<Holiday>
+    private val holidays: MutableList<Holiday>,
 ) {
 
     fun calculate(date: LocalDate, businessDays: Int): LocalDate {
@@ -27,8 +27,9 @@ class WorkingDayCalculator(
                 continue
             }
 
-            if (workDay == 1)
+            if (workDay == 1) {
                 return day
+            }
 
             plusDay++
             workDay--

@@ -9,7 +9,7 @@ import java.util.Locale
 @Document
 class YearTable(
     val locale: Locale,
-    val yearsOfLocale: MutableList<YearOfLocale>
+    val yearsOfLocale: MutableList<YearOfLocale>,
 ) {
 
     @Id
@@ -22,8 +22,9 @@ class YearTable(
     fun addBy(year: Int, id: ObjectId) {
         val calendar = yearsOfLocale.find { it.year == year }
 
-        if (calendar != null)
+        if (calendar != null) {
             yearsOfLocale.remove(calendar)
+        }
 
         yearsOfLocale.add(YearOfLocale(year, id))
         modifiedAt = LocalDateTime.now()
@@ -31,14 +32,15 @@ class YearTable(
 
     fun removeBy(year: Int) {
         val calendar = yearsOfLocale.find { it.year == year }
-        if (calendar != null)
+        if (calendar != null) {
             yearsOfLocale.remove(calendar)
+        }
         modifiedAt = LocalDateTime.now()
     }
 
     data class YearOfLocale(
         val year: Int,
-        var id: ObjectId
+        var id: ObjectId,
     )
 
     companion object

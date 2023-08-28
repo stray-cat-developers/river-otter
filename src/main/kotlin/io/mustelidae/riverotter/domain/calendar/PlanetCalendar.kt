@@ -1,14 +1,18 @@
 package io.mustelidae.riverotter.domain.calendar
 
-import com.usingsky.calendar.KoreanLunarCalendar
+import com.github.usingsky.calendar.KoreanLunarCalendar
 import java.time.LocalDate
 
 class PlanetCalendar {
-    private val koreanLunarCalendar = KoreanLunarCalendar()
+    private val koreanLunarCalendar = KoreanLunarCalendar.getInstance()
 
     fun solarToLunar(date: LocalDate): LocalDate {
         koreanLunarCalendar.setSolarDate(date.year, date.monthValue, date.dayOfMonth)
-        return koreanLunarCalendar.lunarLocalDate
+        return LocalDate.of(
+            koreanLunarCalendar.lunarYear,
+            koreanLunarCalendar.lunarMonth,
+            koreanLunarCalendar.lunarDay,
+        )
     }
 
     fun lunarToSolar(date: LocalDate): LocalDate {
@@ -17,7 +21,12 @@ class PlanetCalendar {
         val interaction = (monthOfIntercalation != null)
 
         koreanLunarCalendar.setLunarDate(date.year, date.monthValue, date.dayOfMonth, interaction)
-        return koreanLunarCalendar.solarLocalDate
+
+        return LocalDate.of(
+            koreanLunarCalendar.solarYear,
+            koreanLunarCalendar.solarMonth,
+            koreanLunarCalendar.solarDay,
+        )
     }
 
     companion object {
@@ -77,7 +86,7 @@ class PlanetCalendar {
             Pair(2042, 2),
             Pair(2044, 7),
             Pair(2047, 5),
-            Pair(2050, 3)
+            Pair(2050, 3),
         )
     }
 }

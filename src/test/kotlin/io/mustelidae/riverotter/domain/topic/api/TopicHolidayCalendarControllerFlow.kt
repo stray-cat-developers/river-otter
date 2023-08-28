@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 
 internal class TopicHolidayCalendarControllerFlow(
-    private val mockMvc: MockMvc
+    private val mockMvc: MockMvc,
 ) {
 
     fun getYear(topicId: String): HolidayCalendarResources.Reply.Calendar {

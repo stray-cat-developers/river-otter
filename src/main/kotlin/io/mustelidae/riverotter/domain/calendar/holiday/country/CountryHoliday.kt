@@ -28,11 +28,13 @@ interface CountryHoliday {
             val date = startOfYear.plusDays(i.toLong())
             val dayOfWeek = date.dayOfWeek
 
-            if (dayOfWeek == SUNDAY)
+            if (dayOfWeek == SUNDAY) {
                 holidays.add(Holiday(date, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
+            }
 
-            if (dayOfWeek == SATURDAY && saturdayIsHoliday)
+            if (dayOfWeek == SATURDAY && saturdayIsHoliday) {
                 holidays.add(Holiday(date, nameOfHoliday, Holiday.Type.WEEKEND_HOLIDAY))
+            }
         }
 
         return holidays

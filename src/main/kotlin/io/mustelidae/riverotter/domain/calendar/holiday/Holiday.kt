@@ -9,7 +9,7 @@ class Holiday(
     val date: LocalDate,
     val name: String,
     val type: Type,
-    val description: String? = null
+    val description: String? = null,
 ) {
     var time: Long = date.atStartOfDay().toEpochSecond(ZoneOffset.UTC)
         private set
@@ -18,6 +18,6 @@ class Holiday(
         PUBLIC_HOLIDAY,
         WEEKEND_HOLIDAY,
         TOPIC_HOLIDAY,
-        SCHEDULE_HOLIDAY
+        SCHEDULE_HOLIDAY,
     }
 }

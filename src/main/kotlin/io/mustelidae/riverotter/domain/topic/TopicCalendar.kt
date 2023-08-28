@@ -4,7 +4,6 @@ import io.mustelidae.riverotter.domain.calendar.holiday.Holiday
 import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.lang.IllegalStateException
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Locale
@@ -12,7 +11,7 @@ import java.util.Locale
 @Document
 class TopicCalendar(
     val locale: Locale,
-    val year: Int
+    val year: Int,
 ) {
     @Id
     var id: ObjectId = ObjectId()
@@ -30,8 +29,9 @@ class TopicCalendar(
         protected set
 
     fun addBy(holiday: Holiday) {
-        if (holiday.type != Holiday.Type.TOPIC_HOLIDAY)
+        if (holiday.type != Holiday.Type.TOPIC_HOLIDAY) {
             throw IllegalStateException("Only TOPIC_HOLIDAY is allowed in the topic calendar.")
+        }
 
         holidays.find { it.date == holiday.date }?.let {
             throw IllegalArgumentException("already exists working day")

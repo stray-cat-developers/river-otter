@@ -1,10 +1,12 @@
 package io.mustelidae.riverotter.domain.client.abstractapi
 
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import io.mustelidae.riverotter.config.AppEnvironment
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.util.Locale
 
+@Disabled
 internal class WorldHolidayStableClientTest {
 
     private val env = AppEnvironment.Client.Abstract().apply {

@@ -11,14 +11,15 @@ class TopicInteraction(
     private val topicFinder: TopicFinder,
     private val topicCalendarFinder: TopicCalendarFinder,
     private val topicRepository: TopicRepository,
-    private val topicCalendarInteraction: TopicCalendarInteraction
+    private val topicCalendarInteraction: TopicCalendarInteraction,
 ) {
 
     fun addBy(name: String, code: String?): ObjectId {
-        val id = if (code == null)
+        val id = if (code == null) {
             ObjectId()
-        else
+        } else {
             ObjectId(code)
+        }
 
         val topic = Topic(id, name)
         return topicRepository.save(topic).id
@@ -59,7 +60,7 @@ class TopicInteraction(
     private fun addCalendarIfNotExist(
         topic: Topic,
         locale: Locale,
-        date: LocalDate
+        date: LocalDate,
     ): ObjectId {
         val hasCalendar = topic.hasCalendar(locale, date.year)
 
