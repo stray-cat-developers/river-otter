@@ -27,6 +27,12 @@ spring:
   mvc:
     log-request-details: true
 
+springdoc:
+  show-actuator: false
+  swagger-ui:
+    enabled: true
+    tags-sorter: alpha
+
 app:
   available-countries: KR,US
   country:

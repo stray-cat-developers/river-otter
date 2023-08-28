@@ -1,7 +1,7 @@
 package io.mustelidae.riverotter.config
 
-import org.springdoc.core.GroupedOpenApi
-import org.springdoc.core.SpringDocUtils
+import org.springdoc.core.models.GroupedOpenApi
+import org.springdoc.core.utils.SpringDocUtils
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.time.LocalDate
@@ -36,9 +36,9 @@ class SwaggerConfiguration {
     @Bean
     fun default(): GroupedOpenApi = GroupedOpenApi.builder()
         .group("API")
-        .addOpenApiCustomiser {
+        .addOpenApiCustomizer {
             it.info.version("v1")
         }
-        .packagesToScan("io.mustelidae.riverotter.api")
+        .packagesToScan("io.mustelidae.riverotter.domain")
         .build()
 }

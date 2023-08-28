@@ -41,8 +41,7 @@ dependencies {
 
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.9.0")
 
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.6")
-    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.5")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
     testImplementation("io.mockk:mockk:1.13.7")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.1.0")

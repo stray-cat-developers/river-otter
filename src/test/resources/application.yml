@@ -28,6 +28,9 @@ spring:
     allow-bean-definition-overriding: true
     lazy-initialization: true
 
+springdoc:
+  show-actuator: false
+
 ---
 spring:
   config:
