@@ -1,7 +1,7 @@
 dist: bionic
 language: java
 jdk:
-  - openjdk11
+  - openjdk17
 before_install:
   - chmod +x gradlew
   - chmod +x gradle/wrapper/gradle-wrapper.jar
