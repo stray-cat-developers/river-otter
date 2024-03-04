@@ -5,19 +5,19 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     java
     idea
-    id("org.springframework.boot") version "3.1.2"
+    id("org.springframework.boot") version "3.1.7"
     id("io.spring.dependency-management") version "1.1.3"
     id("com.avast.gradle.docker-compose") version "0.17.4"
-    kotlin("jvm") version "1.9.10"
-    kotlin("plugin.noarg") version "1.9.10"
-    kotlin("plugin.spring") version "1.9.10"
-    kotlin("plugin.allopen") version "1.9.10"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.noarg") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
+    kotlin("plugin.allopen") version "1.9.22"
     id("org.jmailen.kotlinter") version "3.14.0"
 }
 
 group = "io.mustelidae"
-version = "1.1.0"
-java.sourceCompatibility = JavaVersion.VERSION_17
+version = "1.1.1"
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenLocal()
@@ -117,7 +117,7 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
