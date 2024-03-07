@@ -40,5 +40,20 @@ class SwaggerConfiguration {
             it.info.version("v1")
         }
         .packagesToScan("io.mustelidae.riverotter.domain")
+        .pathsToExclude(
+            "/v1/maintenance/**",
+        )
+        .build()
+
+    @Bean
+    fun maintenance(): GroupedOpenApi = GroupedOpenApi.builder()
+        .group("Maintenance")
+        .addOpenApiCustomizer {
+            it.info.version("v1")
+        }
+        .packagesToScan("io.mustelidae.riverotter.domain")
+        .pathsToMatch(
+            "/v1/maintenance/**",
+        )
         .build()
 }

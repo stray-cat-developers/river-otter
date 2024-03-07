@@ -29,6 +29,13 @@ class HolidayCalendarResources {
                 }
             }
         }
+
+        data class Holiday(
+            val date: LocalDate,
+            val name: String,
+            val type: Type,
+            val description: String? = null,
+        )
     }
 
     class Reply {

@@ -30,6 +30,8 @@ spring:
 
 springdoc:
   show-actuator: false
+  swagger-ui:
+    enabled: false
 
 ---
 spring:
