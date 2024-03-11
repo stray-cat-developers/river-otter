@@ -21,7 +21,7 @@ Java, Docker must be installed before starting.
 Standalone system using embedded mongo database.
 
 ```sh
-git clone https://github.com/fennec-fox/river-otter.git
+git clone https://github.com/stray-cat-developers/river-otter.git
 ./quick-start.sh
 ```
 
@@ -64,8 +64,7 @@ Swagger api page is http://localhost:6400/swagger-ui.html
     ``` 
 
 # Document
-[Korean Guide](https://github.com/fennec-fox/river-otter/wiki/Korean-Guide)
-
+[Korean Guide](https://github.com/stray-cat-developers/river-otter/wiki/Korean-Guide)
 # Note
 
 To do the api test in river-otter, you need to do the following:
