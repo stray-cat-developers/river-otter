@@ -3,6 +3,5 @@ services:
   mongo:
     image: mongo:5.0.5
     platform: linux/arm64/v8
-    container_name: mongodb
     ports:
       - "27018:27017"

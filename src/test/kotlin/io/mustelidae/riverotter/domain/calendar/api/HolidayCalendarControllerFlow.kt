@@ -6,6 +6,7 @@ import io.mustelidae.riverotter.utils.toJson
 import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 internal class HolidayCalendarControllerFlow(
@@ -30,5 +31,18 @@ internal class HolidayCalendarControllerFlow(
             .fromJson<Replies<HolidayCalendarResources.Reply.YearOfCountry>>()
             .getContent()
             .toList()
+    }
+
+    fun find(country: String, year: Int): HolidayCalendarResources.Reply.Calendar {
+        val uri = linkTo<HolidayCalendarController> { findYear(country, year) }.toUri()
+
+        return mockMvc.get(uri) {
+            contentType = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status { is2xxSuccessful() }
+        }.andReturn()
+            .response
+            .contentAsString
+            .fromJson()
     }
 }
